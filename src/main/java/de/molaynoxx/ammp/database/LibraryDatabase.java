@@ -78,6 +78,17 @@ public class LibraryDatabase {
         this.files.addAll(files);
     }
 
+    /**
+     * Returns the list containing all indexed files, loaded from the database on startup
+     * Adding/Removing items might have unwanted side-effects but won't affect the database
+     *
+     * To remove/add files from/to the database use the removeFile/addFile methods of LibraryDatabase and make sure to reload modules dependent on this information afterwards
+     * @return Returns the list containing all indexed files, loaded from the database on startup
+     */
+    public List<LibraryFile> getFiles() {
+        return this.files;
+    }
+
     public void importFile(File mp3File) throws InvalidDataException, IOException, UnsupportedTagException {
         ID3Helper id3Helper = new ID3Helper(mp3File);
 
@@ -103,7 +114,7 @@ public class LibraryDatabase {
             }
             values[column] = id3Helper.getTag(id3Tag);
         }
-        values[values.length - 2] = mp3File.getAbsolutePath();
+        values[values.length - 1] = mp3File.getAbsolutePath();
 
         queryFactory.insert(libFile)
                 .columns(columnsArray)
