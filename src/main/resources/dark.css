@@ -1,0 +1,99 @@
+/* SIDEBAR */
+.sidebar {
+    -fx-background-color: #141414;
+}
+
+.sidebar-top {
+    -fx-background-color: #0d0d0d;
+}
+
+.search-input {
+    -fx-font-size: 1em;
+    -fx-background-radius: 10px;
+    -fx-background-position: right center;
+    -fx-background-image:url('/icn/icnSearch.png');
+    -fx-background-size: 1.9em 1.9em;
+    -fx-background-repeat: no-repeat;
+}
+
+.sidebar-scroll-pane {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.titled-pane-sidebar {
+    -fx-text-fill: #ddd;
+    -fx-font-size: 1.85em;
+}
+
+.titled-pane-sidebar > .title {
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: #141414;
+}
+
+.titled-pane-sidebar > .title > .arrow-button > .arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+.sidebar-scroll-pane > .scroll-bar:vertical > .increment-button,
+.sidebar-scroll-pane > .scroll-bar:vertical > .decrement-button {
+    -fx-padding: 0em 0.25em 0em 0.166667em; /* 3 3 3 2 */
+    -fx-opacity: 0;
+}
+
+.sidebar-scroll-pane > .scroll-bar:vertical {
+    -fx-background-insets: 0;
+    -fx-background-color: #141414;
+    -fx-padding: 1 0 1 0;
+}
+
+.sidebar-scroll-pane > .scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0em 0.333em 0em 0.333em;
+}
+
+.sidebar-scroll-pane > .scroll-bar:vertical > .increment-button > .increment-arrow {
+    -fx-shape: "";
+    -fx-padding: 0em 0.333em 0em 0.333em;
+}
+
+.sidebar-scroll-pane > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #2a2a2a;
+}
+
+/* NOW PLAYING */
+.now-playing {
+    -fx-background-color: #191919;
+    -fx-padding: 10 0 10 0;
+}
+
+.title-label {
+    -fx-font-size: 2.1em;
+    -fx-text-fill: #bbb;
+}
+
+.artist-label {
+    -fx-font-size: 1.55em;
+    -fx-text-fill: #aaa;
+}
+
+/* CONTROL BAR */
+.control-bar {
+    -fx-background-color: #0d0d0d;
+}
+
+.icn-button {
+    -fx-opacity: 0.5;
+}
+
+.icn-button:hover {
+    -fx-opacity: 0.65;
+}
+
+.icn-button:pressed {
+    -fx-opacity: 0.85;
+}

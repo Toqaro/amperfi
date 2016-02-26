@@ -3,6 +3,7 @@ package de.molaynoxx.ammp;
 import de.molaynoxx.ammp.database.LibraryDatabase;
 import de.molaynoxx.ammp.player.PlayerAPI;
 import de.molaynoxx.ammp.task.TaskInitialize;
+import de.molaynoxx.ammp.ui.AMMPScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.apache.log4j.BasicConfigurator;
@@ -20,6 +21,8 @@ public class AMMP extends Application {
     }
 
     private void initializeUI(Stage primaryStage) {
+        primaryStage.setScene(new AMMPScene());
+        primaryStage.setTitle("AMMP!");
         primaryStage.show();
     }
 
