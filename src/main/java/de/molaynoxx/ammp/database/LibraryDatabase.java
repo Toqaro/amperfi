@@ -3,6 +3,7 @@ package de.molaynoxx.ammp.database;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.SQLQueryFactory;
@@ -120,7 +121,16 @@ public class LibraryDatabase {
                 .columns(columnsArray)
                 .values(values)
                 .execute();
+    }
 
+    public List<LibraryFile> getLibraryFilesByPredicate(Predicate predicate) {
+        QLibraryFile libFile = QLibraryFile.LibraryFile;
+        return queryFactory.select(Projections.bean(LibraryFile.class, libFile.all())).from(libFile).where(predicate).fetch();
+    }
+
+    public List<String> getTags(ID3Helper.ID3Tag tag) {
+        QLibraryFile libFile = QLibraryFile.LibraryFile;
+        return queryFactory.select(libFile.getFieldByTag(tag)).distinct().from(libFile).fetch();
     }
 
 }

@@ -1,16 +1,21 @@
 package de.molaynoxx.ammp.ui;
 
+import de.molaynoxx.ammp.AMMP;
+import de.molaynoxx.ammp.database.model.QLibraryFile;
+import de.molaynoxx.ammp.id3.ID3Helper;
+import de.molaynoxx.ammp.player.playlist.DatabasePlaylist;
+import de.molaynoxx.ammp.player.playlist.Playlist;
 import javafx.geometry.Insets;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class Sidebar extends VBox {
 
     private final NowPlaying nowPlaying;
+    private final SidebarTreeView<Playlist> treeViewGenres;
+    private final SidebarTreeView<Playlist> treeViewAlbums;
+    private final SidebarTreeView<Playlist> treeViewArtists;
 
     public Sidebar() {
         super();
@@ -44,12 +49,23 @@ public class Sidebar extends VBox {
         TitledPane tpArtists = new TitledPane();
         tpArtists.setText("Artists");
         tpArtists.getStyleClass().add("titled-pane-sidebar");
+
+        treeViewArtists = new SidebarTreeView<>();
+        tpArtists.setContent(treeViewArtists);
+
         TitledPane tpAlbums = new TitledPane();
         tpAlbums.setText("Albums");
         tpAlbums.getStyleClass().add("titled-pane-sidebar");
+
+        treeViewAlbums = new SidebarTreeView<>();
+        tpAlbums.setContent(treeViewAlbums);
+
         TitledPane tpGenres = new TitledPane();
         tpGenres.setText("Genres");
         tpGenres.getStyleClass().add("titled-pane-sidebar");
+
+        treeViewGenres = new SidebarTreeView<>();
+        tpGenres.setContent(treeViewGenres);
 
         acc.getPanes().addAll(tpArtists, tpAlbums, tpGenres);
         sidebarContainer.getChildren().add(acc);
@@ -62,6 +78,28 @@ public class Sidebar extends VBox {
 
         // Make sure the upper half of the sidebar is always big enough so the NowPlaying Control is touching the ControlBar
         sidebarContainer.minHeightProperty().bind(this.heightProperty().subtract(nowPlaying.heightProperty()));
+
+        updateSidebar();
+    }
+
+    public void updateSidebar() {
+        treeViewArtists.getRoot().getChildren().clear();
+        for(String artist : AMMP.db.getTags(ID3Helper.ID3Tag.ARTIST)) {
+            if(artist == null) continue;
+            treeViewArtists.getRoot().getChildren().add(new TreeItem<>(new DatabasePlaylist(artist, QLibraryFile.LibraryFile.artist.like(artist))));
+        }
+
+        treeViewAlbums.getRoot().getChildren().clear();
+        for(String album : AMMP.db.getTags(ID3Helper.ID3Tag.ALBUM)) {
+            if(album == null) continue;
+            treeViewAlbums.getRoot().getChildren().add(new TreeItem<>(new DatabasePlaylist(album, QLibraryFile.LibraryFile.album.like(album))));
+        }
+
+        treeViewGenres.getRoot().getChildren().clear();
+        for(String genre : AMMP.db.getTags(ID3Helper.ID3Tag.GENRE)) {
+            if(genre == null) continue;
+            treeViewGenres.getRoot().getChildren().add(new TreeItem<>(new DatabasePlaylist(genre, QLibraryFile.LibraryFile.genre.like(genre))));
+        }
     }
 
 }

@@ -1,17 +1,17 @@
 package de.molaynoxx.ammp.database.model;
 
-import static com.querydsl.core.types.PathMetadataFactory.*;
-import de.molaynoxx.ammp.database.projection.LibraryFile;
-
-
-import com.querydsl.core.types.dsl.*;
-
-import com.querydsl.core.types.PathMetadata;
-import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-
+import com.querydsl.core.types.PathMetadata;
+import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.sql.ColumnMetadata;
+import de.molaynoxx.ammp.database.projection.LibraryFile;
+import de.molaynoxx.ammp.id3.ID3Helper;
+
+import javax.annotation.Generated;
 import java.sql.Types;
+
+import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
 
 
@@ -97,6 +97,40 @@ public class QLibraryFile extends com.querydsl.sql.RelationalPathBase<LibraryFil
         addMetadata(title, ColumnMetadata.named("title").withIndex(12).ofType(Types.VARCHAR).withSize(2000000000).withDigits(10));
         addMetadata(track, ColumnMetadata.named("track").withIndex(13).ofType(Types.VARCHAR).withSize(2000000000).withDigits(10));
         addMetadata(year, ColumnMetadata.named("year").withIndex(14).ofType(Types.VARCHAR).withSize(2000000000).withDigits(10));
+    }
+    public StringPath getFieldByTag(ID3Helper.ID3Tag id3Tag) {
+        switch (id3Tag) {
+            case ALBUM:
+                return album;
+            case ALBUMARTIST:
+                return albumartist;
+            case ARTIST:
+                return artist;
+            case BPM:
+                return bpm;
+            case COMMENT:
+                return comment;
+            case COMPOSER:
+                return composer;
+            case DATE:
+                return date;
+            case GENRE:
+                return genre;
+            case LENGTH:
+                return length;
+            case PUBLISHER:
+                return publisher;
+            case RATING:
+                return rating;
+            case TITLE:
+                return title;
+            case TRACK:
+                return track;
+            case YEAR:
+                return year;
+            default:
+                return null;
+        }
     }
 
 }
