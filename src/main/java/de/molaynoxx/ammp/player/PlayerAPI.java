@@ -19,6 +19,8 @@ public class PlayerAPI {
     private final Minim minim = new Minim(new DefaultMinimHelper());
     private AudioPlayer currentPlayer;
 
+    private Thread playbackUpdater;
+
     private final ArrayList<LibraryFile> originalPlaylist = new ArrayList<>();
     private final ArrayList<LibraryFile> currentPlaylist = new ArrayList<>();
     private int currentIndex = 0;
@@ -130,7 +132,8 @@ public class PlayerAPI {
         currentPlayer = minim.loadFile(currentPlaylist.get(currentIndex).getPath());
         currentPlayer.play();
         currentPlayer.setGain(-80 * (1 - volume));
-        new Thread(new PlaybackUpdater(currentPlayer, this::afterPlayback)).start();
+        playbackUpdater = new Thread(new PlaybackUpdater(currentPlayer, this::afterPlayback, this));
+        playbackUpdater.start();
     }
 
     private void stopPlayback() {
@@ -164,6 +167,7 @@ public class PlayerAPI {
 
     public void stop() {
         if(currentPlayer == null) return;
+        playbackUpdater.interrupt();
         currentPlayer.close();
         currentPlayer = null;
         currentIndex = 0;
@@ -179,12 +183,16 @@ public class PlayerAPI {
     }
 
     public void next() {
+        playbackUpdater.interrupt();
+        if(loop) currentIndex++;
         afterPlayback();
     }
 
     public void previous() {
-        currentIndex -= 2;
+        playbackUpdater.interrupt();
+        currentIndex -= loop ? 1 : 2;
         currentIndex %= currentPlaylist.size();
+        afterPlayback();
     }
 
 }
