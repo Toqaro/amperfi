@@ -30,3 +30,12 @@ dependencies {
     compile files('E:\\Programmieren\\Java\\mp3agic\\target\\mp3agic-0.8.5-SNAPSHOT.jar')
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport

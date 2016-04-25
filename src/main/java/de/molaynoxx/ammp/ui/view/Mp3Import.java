@@ -52,6 +52,7 @@ public class Mp3Import extends VBox implements Viewable {
         Button btnSynchronize = new Button("Synchronize");
         btnSynchronize.setMaxWidth(Double.MAX_VALUE);
         btnSynchronize.getStyleClass().add("mp3-import-button");
+        btnSynchronize.setOnAction(controller.synchronizeFolderHandler);
 
         gpButtons.add(btnAdd, 0, 0);
         gpButtons.add(btnRemove, 1, 0);
