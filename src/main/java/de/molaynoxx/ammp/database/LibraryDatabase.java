@@ -177,7 +177,7 @@ public class LibraryDatabase {
 
             queryFactory.insert(libFile)
                     .columns(columnsArray)
-                    .values(values)
+                    .values((Object[]) values)
                     .execute();
         } else {
             LibraryFile lf = existingFiles.get(0);
