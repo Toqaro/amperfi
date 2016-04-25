@@ -8,6 +8,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.SQLQueryFactory;
 import com.querydsl.sql.SQLiteTemplates;
+import com.querydsl.sql.dml.SQLUpdateClause;
 import de.molaynoxx.ammp.database.model.QLibraryFile;
 import de.molaynoxx.ammp.database.model.QLibraryFolder;
 import de.molaynoxx.ammp.database.projection.LibraryFile;
@@ -111,7 +112,8 @@ public class LibraryDatabase {
      */
     public void addFolder(String path) {
         queryFactory.insert(QLibraryFolder.LibraryFolder)
-                .values(path);
+                .values(path)
+                .execute();
         folders.add(path);
     }
 
@@ -143,36 +145,52 @@ public class LibraryDatabase {
      * @throws UnsupportedTagException thrown if the id3 tag library doesn't support the mp3's tag.
      */
     public void importFile(File mp3File) throws InvalidDataException, IOException, UnsupportedTagException {
-        ID3Helper id3Helper = new ID3Helper(mp3File);
-
         QLibraryFile libFile = QLibraryFile.LibraryFile;
 
-        List<Path<?>> columns = libFile.getColumns();
-        Iterator<Path<?>> pathIterator = columns.iterator();
-        while (pathIterator.hasNext()) {
-            Path<?> column = pathIterator.next();
-            if(column.getMetadata().getName().equalsIgnoreCase("file_id")) pathIterator.remove();
-            if(column.getMetadata().getName().equalsIgnoreCase("path")) pathIterator.remove();
-        }
+        List<LibraryFile> existingFiles = queryFactory.select(libFile).from(libFile)
+                .where(libFile.path.eq(mp3File.getAbsolutePath()))
+                .fetch();
 
-        columns.add(libFile.path);
-        Path<?>[] columnsArray = columns.toArray(new Path<?>[columns.size()]);
-
-        String[] values = new String[columnsArray.length];
-
-        for(ID3Helper.ID3Tag id3Tag : ID3Helper.ID3Tag.values()) {
-            int column = -1;
-            for(int i = 0; i < columnsArray.length; i++) {
-                if(columnsArray[i].getMetadata().getName().equalsIgnoreCase(id3Tag.toString())) column = i;
+        ID3Helper id3Helper = new ID3Helper(mp3File);
+        if(existingFiles.size() == 0) {
+            List<Path<?>> columns = libFile.getColumns();
+            Iterator<Path<?>> pathIterator = columns.iterator();
+            while (pathIterator.hasNext()) {
+                Path<?> column = pathIterator.next();
+                if (column.getMetadata().getName().equalsIgnoreCase("file_id")) pathIterator.remove();
+                if (column.getMetadata().getName().equalsIgnoreCase("path")) pathIterator.remove();
             }
-            values[column] = id3Helper.getTag(id3Tag);
-        }
-        values[values.length - 1] = mp3File.getAbsolutePath();
 
-        queryFactory.insert(libFile)
-                .columns(columnsArray)
-                .values(values)
-                .execute();
+            columns.add(libFile.path);
+            Path<?>[] columnsArray = columns.toArray(new Path<?>[columns.size()]);
+
+            String[] values = new String[columnsArray.length];
+
+            for (ID3Helper.ID3Tag id3Tag : ID3Helper.ID3Tag.values()) {
+                int column = -1;
+                for (int i = 0; i < columnsArray.length; i++) {
+                    if (columnsArray[i].getMetadata().getName().equalsIgnoreCase(id3Tag.toString())) column = i;
+                }
+                values[column] = id3Helper.getTag(id3Tag);
+            }
+            values[values.length - 1] = mp3File.getAbsolutePath();
+
+            queryFactory.insert(libFile)
+                    .columns(columnsArray)
+                    .values(values)
+                    .execute();
+        } else {
+            LibraryFile lf = existingFiles.get(0);
+
+            SQLUpdateClause updateOp = queryFactory.update(libFile);
+
+            for(ID3Helper.ID3Tag tag : ID3Helper.ID3Tag.values()) {
+                lf.setTag(tag, id3Helper.getTag(tag));
+                updateOp.set(libFile.getFieldByTag(tag), lf.getTag(tag));
+            }
+
+            updateOp.execute();
+        }
     }
 
     public List<LibraryFile> getLibraryFilesByPredicate(Predicate predicate) {

@@ -41,6 +41,8 @@ public class TaskSyncFolders extends Task<Void> {
                 }
                 progressCounter++;
                 updateProgress(progressCounter, mp3s.size());
+                if(isCancelled())
+                    break;
             }
             return null;
         } finally {

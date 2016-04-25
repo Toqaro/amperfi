@@ -1,5 +1,6 @@
 package de.molaynoxx.ammp.database.projection;
 
+import de.molaynoxx.ammp.id3.ID3Helper;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,228 +14,342 @@ import javax.annotation.Generated;
 @Generated("com.querydsl.codegen.BeanSerializer")
 public class LibraryFile {
 
-    private StringProperty album = new SimpleStringProperty();
+    private String album;
+    private StringProperty albumProperty = new SimpleStringProperty();
 
-    private StringProperty albumartist = new SimpleStringProperty();
+    private String albumartist;
+    private StringProperty albumartistProperty = new SimpleStringProperty();
 
-    private StringProperty artist = new SimpleStringProperty();
+    private String artist;
+    private StringProperty artistProperty = new SimpleStringProperty();
 
-    private StringProperty bpm = new SimpleStringProperty();
+    private String bpm;
+    private StringProperty bpmProperty = new SimpleStringProperty();
 
-    private StringProperty comment = new SimpleStringProperty();
+    private String comment;
+    private StringProperty commentProperty = new SimpleStringProperty();
 
-    private StringProperty composer = new SimpleStringProperty();
+    private String composer;
+    private StringProperty composerProperty = new SimpleStringProperty();
 
-    private StringProperty date = new SimpleStringProperty();
+    private String date;
+    private StringProperty dateProperty = new SimpleStringProperty();
 
-    private IntegerProperty fileId = new SimpleIntegerProperty();
+    private int fileId;
+    private IntegerProperty fileIdProperty = new SimpleIntegerProperty();
 
-    private StringProperty genre = new SimpleStringProperty();
+    private String genre;
+    private StringProperty genreProperty = new SimpleStringProperty();
 
-    private StringProperty length = new SimpleStringProperty();
+    private String length;
+    private StringProperty lengthProperty = new SimpleStringProperty();
 
-    private StringProperty path = new SimpleStringProperty();
+    private String path;
+    private StringProperty pathProperty = new SimpleStringProperty();
 
-    private StringProperty publisher = new SimpleStringProperty();
+    private String publisher;
+    private StringProperty publisherProperty = new SimpleStringProperty();
 
-    private StringProperty rating = new SimpleStringProperty();
+    private String rating;
+    private StringProperty ratingProperty = new SimpleStringProperty();
 
-    private StringProperty title = new SimpleStringProperty();
+    private String title;
+    private StringProperty titleProperty = new SimpleStringProperty();
 
-    private StringProperty track = new SimpleStringProperty();
+    private String track;
+    private StringProperty trackProperty = new SimpleStringProperty();
 
-    private StringProperty year = new SimpleStringProperty();
+    private String year;
+    private StringProperty yearProperty = new SimpleStringProperty();
 
     public String getAlbum() {
-        return album.get();
+        return albumProperty.get();
     }
 
     public StringProperty albumProperty() {
-        return album;
+        return albumProperty;
     }
 
     public void setAlbum(String album) {
-        this.album.set(album);
+        this.albumProperty.set(album);
+        this.album = album;
     }
 
     public String getAlbumartist() {
-        return albumartist.get();
+        return albumartistProperty.get();
     }
 
     public StringProperty albumartistProperty() {
-        return albumartist;
+        return albumartistProperty;
     }
 
     public void setAlbumartist(String albumartist) {
-        this.albumartist.set(albumartist);
+        this.albumartistProperty.set(albumartist);
+        this.albumartist = albumartist;
     }
 
     public String getArtist() {
-        return artist.get();
+        return artistProperty.get();
     }
 
     public StringProperty artistProperty() {
-        return artist;
+        return artistProperty;
     }
 
     public void setArtist(String artist) {
-        this.artist.set(artist);
+        this.artistProperty.set(artist);
+        this.artist = artist;
     }
 
     public String getBpm() {
-        return bpm.get();
+        return bpmProperty.get();
     }
 
     public StringProperty bpmProperty() {
-        return bpm;
+        return bpmProperty;
     }
 
     public void setBpm(String bpm) {
-        this.bpm.set(bpm);
+        this.bpmProperty.set(bpm);
+        this.bpm = bpm;
     }
 
     public String getComment() {
-        return comment.get();
+        return commentProperty.get();
     }
 
     public StringProperty commentProperty() {
-        return comment;
+        return commentProperty;
     }
 
     public void setComment(String comment) {
-        this.comment.set(comment);
+        this.commentProperty.set(comment);
+        this.comment = comment;
     }
 
     public String getComposer() {
-        return composer.get();
+        return composerProperty.get();
     }
 
     public StringProperty composerProperty() {
-        return composer;
+        return composerProperty;
     }
 
     public void setComposer(String composer) {
-        this.composer.set(composer);
+        this.composerProperty.set(composer);
+        this.composer = composer;
     }
 
     public String getDate() {
-        return date.get();
+        return dateProperty.get();
     }
 
     public StringProperty dateProperty() {
-        return date;
+        return dateProperty;
     }
 
     public void setDate(String date) {
-        this.date.set(date);
+        this.dateProperty.set(date);
+        this.date = date;
     }
 
     public int getFileId() {
-        return fileId.get();
+        return fileIdProperty.get();
     }
 
     public IntegerProperty fileIdProperty() {
-        return fileId;
+        return fileIdProperty;
     }
 
     public void setFileId(int fileId) {
-        this.fileId.set(fileId);
+        this.fileIdProperty.set(fileId);
+        this.fileId = fileId;
     }
 
     public String getGenre() {
-        return genre.get();
+        return genreProperty.get();
     }
 
     public StringProperty genreProperty() {
-        return genre;
+        return genreProperty;
     }
 
     public void setGenre(String genre) {
-        this.genre.set(genre);
+        this.genreProperty.set(genre);
+        this.genre = genre;
     }
 
     public String getLength() {
-        return length.get();
+        return lengthProperty.get();
     }
 
     public StringProperty lengthProperty() {
-        return length;
+        return lengthProperty;
     }
 
     public void setLength(String length) {
-        this.length.set(length);
+        this.lengthProperty.set(length);
+        this.length = length;
     }
 
     public String getPath() {
-        return path.get();
+        return pathProperty.get();
     }
 
     public StringProperty pathProperty() {
-        return path;
+        return pathProperty;
     }
 
     public void setPath(String path) {
-        this.path.set(path);
+        this.pathProperty.set(path);
+        this.path = path;
     }
 
     public String getPublisher() {
-        return publisher.get();
+        return publisherProperty.get();
     }
 
     public StringProperty publisherProperty() {
-        return publisher;
+        return publisherProperty;
     }
 
     public void setPublisher(String publisher) {
-        this.publisher.set(publisher);
+        this.publisherProperty.set(publisher);
+        this.publisher = publisher;
     }
 
     public String getRating() {
-        return rating.get();
+        return ratingProperty.get();
     }
 
     public StringProperty ratingProperty() {
-        return rating;
+        return ratingProperty;
     }
 
     public void setRating(String rating) {
-        this.rating.set(rating);
+        this.ratingProperty.set(rating);
+        this.rating = rating;
     }
 
     public String getTitle() {
-        return title.get();
+        return titleProperty.get();
     }
 
     public StringProperty titleProperty() {
-        return title;
+        return titleProperty;
     }
 
     public void setTitle(String title) {
-        this.title.set(title);
+        this.titleProperty.set(title);
+        this.title = title;
     }
 
     public String getTrack() {
-        return track.get();
+        return trackProperty.get();
     }
 
     public StringProperty trackProperty() {
-        return track;
+        return trackProperty;
     }
 
     public void setTrack(String track) {
-        this.track.set(track);
+        this.trackProperty.set(track);
+        this.track = track;
     }
 
     public String getYear() {
-        return year.get();
+        return yearProperty.get();
     }
 
     public StringProperty yearProperty() {
-        return year;
+        return yearProperty;
     }
 
     public void setYear(String year) {
-        this.year.set(year);
+        this.yearProperty.set(year);
+        this.year = year;
+    }
+
+    public void setTag(ID3Helper.ID3Tag tag, String value) {
+        switch (tag) {
+            case ALBUMARTIST:
+                albumartistProperty.set(value);
+                break;
+            case ALBUM:
+                albumProperty.set(value);
+                break;
+            case ARTIST:
+                artistProperty.set(value);
+                break;
+            case BPM:
+                bpmProperty.set(value);
+                break;
+            case COMPOSER:
+                composerProperty.set(value);
+                break;
+            case DATE:
+                dateProperty.set(value);
+                break;
+            case LENGTH:
+                lengthProperty.set(value);
+                break;
+            case PUBLISHER:
+                publisherProperty.set(value);
+                break;
+            case COMMENT:
+                commentProperty.set(value);
+                break;
+            case GENRE:
+                genreProperty.set(value);
+                break;
+            case TITLE:
+                titleProperty.set(value);
+                break;
+            case TRACK:
+                trackProperty.set(value);
+                break;
+            case YEAR:
+                yearProperty.set(value);
+                break;
+            case RATING:
+                ratingProperty.set(value);
+                break;
+        }
+    }
+
+    public String getTag(ID3Helper.ID3Tag tag) {
+        switch (tag) {
+            case ALBUMARTIST:
+                return albumartistProperty.get();
+            case ALBUM:
+                return albumProperty.get();
+            case ARTIST:
+                return artistProperty.get();
+            case BPM:
+                return bpmProperty.get();
+            case COMPOSER:
+                return composerProperty.get();
+            case DATE:
+                return dateProperty.get();
+            case LENGTH:
+                return lengthProperty.get();
+            case PUBLISHER:
+                return publisherProperty.get();
+            case COMMENT:
+                return commentProperty.get();
+            case GENRE:
+                return genreProperty.get();
+            case TITLE:
+                return titleProperty.get();
+            case TRACK:
+                return trackProperty.get();
+            case YEAR:
+                return yearProperty.get();
+            case RATING:
+                return ratingProperty.get();
+            default:
+                return null;
+        }
     }
 
 }

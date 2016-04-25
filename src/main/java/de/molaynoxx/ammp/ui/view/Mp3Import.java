@@ -11,6 +11,8 @@ import javafx.scene.layout.*;
 
 public class Mp3Import extends VBox implements Viewable {
 
+    private final ListView<String> lvFolders;
+
     public Mp3Import() {
         Mp3ImportController controller = new Mp3ImportController();
 
@@ -27,8 +29,7 @@ public class Mp3Import extends VBox implements Viewable {
         VBox.setMargin(lblTitle, new Insets(10, 0, 10, 0));
         VBox.setMargin(lblHelp, new Insets(0, 0, 25, 0));
 
-        ListView<String> lvFolders = new ListView<>();
-        lvFolders.getItems().addAll(AMMP.db.getFolders());
+        lvFolders = new ListView<>();
         lvFolders.maxWidthProperty().bind(lblHelp.widthProperty());
 
         this.getChildren().add(lvFolders);
@@ -63,6 +64,12 @@ public class Mp3Import extends VBox implements Viewable {
         gpButtons.getColumnConstraints().add(cc);
 
         this.getChildren().add(gpButtons);
+        reloadFolders();
+    }
+
+    public void reloadFolders() {
+        lvFolders.getItems().clear();
+        lvFolders.getItems().addAll(AMMP.db.getFolders());
     }
 
 }

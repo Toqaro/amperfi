@@ -21,8 +21,13 @@ public final class Mp3ImportController {
             File directory = dc.showDialog(AMMP.ui.getWindow());
 
             if(directory == null) return;
+            AMMP.db.addFolder(directory.getAbsolutePath());
+            AMMP.ui.mp3Import.reloadFolders();
+
             TaskSyncFolders task = new TaskSyncFolders(directory);
+            AMMP.ui.mp3ImportProgress.btnCancel.setOnAction(action -> task.cancel());
             new Thread(task).start();
+
             AMMP.ui.mp3ImportProgress.pbImporting.progressProperty().bind(task.progressProperty());
             AMMP.ui.mp3ImportProgress.lblPath.textProperty().bind(task.messageProperty());
         }
