@@ -9,13 +9,24 @@ repositories {
     mavenCentral()
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'de.molaynoxx.ammp.AMMP'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     compile group: 'com.querydsl', name: 'querydsl-sql', version: '4.0.7'
     compile group: 'com.querydsl', name: 'querydsl-sql-codegen', version: '4.0.7'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.6.1'
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
     compile 'commons-io:commons-io:2.4'
-    compile fileTree(dir: 'D:\\Programmieren\\Libs\\Minim-2.2.2\\library', include: '*.jar')
-    compile files('D:\\Programmieren\\Java\\mp3agic\\target\\mp3agic-0.8.5-SNAPSHOT.jar')
+    compile fileTree(dir: 'E:\\Programmieren\\Libs\\Minim-2.2.2\\library', include: '*.jar')
+    compile files('E:\\Programmieren\\Java\\mp3agic\\target\\mp3agic-0.8.5-SNAPSHOT.jar')
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

@@ -6,6 +6,7 @@ import de.molaynoxx.ammp.id3.ID3Helper;
 import de.molaynoxx.ammp.player.playlist.DatabasePlaylist;
 import de.molaynoxx.ammp.player.playlist.Playlist;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;

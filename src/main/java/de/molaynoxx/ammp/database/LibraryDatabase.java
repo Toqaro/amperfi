@@ -9,7 +9,9 @@ import com.querydsl.sql.Configuration;
 import com.querydsl.sql.SQLQueryFactory;
 import com.querydsl.sql.SQLiteTemplates;
 import de.molaynoxx.ammp.database.model.QLibraryFile;
+import de.molaynoxx.ammp.database.model.QLibraryFolder;
 import de.molaynoxx.ammp.database.projection.LibraryFile;
+import de.molaynoxx.ammp.database.projection.LibraryFolder;
 import de.molaynoxx.ammp.id3.ID3Helper;
 import org.sqlite.SQLiteDataSource;
 
@@ -22,11 +24,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LibraryDatabase {
 
     private final SQLQueryFactory queryFactory;
     private final ArrayList<LibraryFile> files = new ArrayList<>();
+    private final ArrayList<String> folders = new ArrayList<>();
 
     public LibraryDatabase() throws SQLException, UnsupportedTagException, InvalidDataException, IOException {
         this(new File(System.getenv("APPDATA") + "\\AMMP\\", "library.db"));
@@ -77,6 +81,8 @@ public class LibraryDatabase {
         QLibraryFile libFile = QLibraryFile.LibraryFile;
         List<LibraryFile> files = queryFactory.select(Projections.bean(LibraryFile.class, libFile.all())).from(libFile).fetch();
         this.files.addAll(files);
+
+        reloadFolders();
     }
 
     /**
@@ -90,6 +96,52 @@ public class LibraryDatabase {
         return this.files;
     }
 
+    /**
+     * Returns the list containing all folders that have been added to the library.
+     * Used for synchronizing contents from hard drive into the database.
+     * @return the list containing all folders that have been added to the library.
+     */
+    public List<String> getFolders() {
+        return this.folders;
+    }
+
+    /**
+     * Adds a folder to the library. (No validity checking done here)
+     * @param path Absolute path to a folder on the hard drive
+     */
+    public void addFolder(String path) {
+        queryFactory.insert(QLibraryFolder.LibraryFolder)
+                .values(path);
+        folders.add(path);
+    }
+
+    /**
+     * Removes a folder from database & running instance if it was previously added.
+     * @param path Absolute path to a folder on the hard drive
+     */
+    public void removeFolder(String path) {
+        QLibraryFolder libraryFolder = QLibraryFolder.LibraryFolder;
+        queryFactory.delete(libraryFolder)
+                .where(libraryFolder.path.eq(path))
+                .execute();
+
+        reloadFolders();
+    }
+
+    private void reloadFolders() {
+        folders.clear();
+        QLibraryFolder libFolder = QLibraryFolder.LibraryFolder;
+        List<LibraryFolder> folders = queryFactory.select(Projections.bean(LibraryFolder.class, libFolder.all())).from(libFolder).fetch();
+        this.folders.addAll(folders.stream().map(LibraryFolder::getPath).collect(Collectors.toList()));
+    }
+
+    /**
+     * "Imports" a mp3 file from hard drive to database by reading and caching its id3 tags for later use.
+     * @param mp3File location of the mp3 file on the hard drive
+     * @throws InvalidDataException
+     * @throws IOException thrown if there are any problems related to the file path/reading the file.
+     * @throws UnsupportedTagException thrown if the id3 tag library doesn't support the mp3's tag.
+     */
     public void importFile(File mp3File) throws InvalidDataException, IOException, UnsupportedTagException {
         ID3Helper id3Helper = new ID3Helper(mp3File);
 
@@ -130,7 +182,7 @@ public class LibraryDatabase {
 
     public List<String> getTags(ID3Helper.ID3Tag tag) {
         QLibraryFile libFile = QLibraryFile.LibraryFile;
-        return queryFactory.select(libFile.getFieldByTag(tag)).distinct().from(libFile).fetch();
+        return queryFactory.select(libFile.getFieldByTag(tag)).distinct().from(libFile).orderBy(libFile.getFieldByTag(tag).asc()).fetch();
     }
 
 }

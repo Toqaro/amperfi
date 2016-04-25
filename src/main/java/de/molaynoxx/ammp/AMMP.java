@@ -3,6 +3,7 @@ package de.molaynoxx.ammp;
 import de.molaynoxx.ammp.database.LibraryDatabase;
 import de.molaynoxx.ammp.player.PlayerAPI;
 import de.molaynoxx.ammp.task.TaskInitialize;
+import de.molaynoxx.ammp.ui.helper.AMMPUIInitializer;
 import de.molaynoxx.ammp.ui.AMMPScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ public class AMMP extends Application {
 
     public static LibraryDatabase db;
     public static PlayerAPI playerAPI;
+    public static AMMPScene ui;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -21,9 +23,8 @@ public class AMMP extends Application {
     }
 
     private void initializeUI(Stage primaryStage) {
-        primaryStage.setScene(new AMMPScene());
-        primaryStage.setTitle("AMMP!");
-        primaryStage.show();
+        AMMPUIInitializer initializer = new AMMPUIInitializer(primaryStage);
+        initializer.initialize();
     }
 
     public static void main(String[] args) {

@@ -6,6 +6,10 @@ public class SidebarTreeCell<T> extends TreeCell<T> {
 
     public SidebarTreeCell() {
         super();
+        setMaxWidth(285);
+        setMinWidth(285);
+        setPrefWidth(285);
+        setWidth(285);
 
         getStyleClass().add("treecell-sidebar");
     }

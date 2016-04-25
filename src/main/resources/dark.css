@@ -1,10 +1,63 @@
+/* VARIABLES */
+* {
+    highlight-color: #2E2372;
+    background-sidebar: #111111;
+    background-controlbar: #0d0d0d;
+    background-nowplaying: #141414;
+    background-main: #191919;
+    background-highlight: #1d1d1d;
+    control-body: #1d1d1d;
+    control-body-dark: #141414;
+    text1: #aaa;
+    text2: #bbb;
+    text3: #ddd;
+    text4: #eee;
+}
+
+/* GENERAL */
+.button {
+    -fx-background-color: derive(control-body, -20%), derive(control-body, -15%), derive(control-body, -10%), control-body;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-text-fill: text1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: derive(control-body, -17.5%), derive(control-body, -12.5%), derive(control-body, -7.5%), derive(control-body, 2.5%);
+}
+
+.button:pressed {
+    -fx-background-color: derive(control-body, -22.5%), derive(control-body, -17.5%), derive(control-body, -12.5%), derive(control-body, -2.5%);
+}
+
+.progress-bar {
+    -fx-indeterminate-bar-length: 0;
+    -fx-indeterminate-bar-escape: false;
+    -fx-indeterminate-bar-flip: false;
+    -fx-indeterminate-bar-animation-time: 2;
+}
+.progress-bar > .bar {
+    -fx-background-color: highlight-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-padding: 0.25em;
+}
+.progress-bar > .track {
+    -fx-background-color: background-sidebar;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
 /* SIDEBAR */
 .sidebar {
-    -fx-background-color: #141414;
+    -fx-background-color: background-sidebar;
 }
 
 .sidebar-top {
-    -fx-background-color: #0d0d0d;
+    -fx-background-color: background-controlbar;
 }
 
 .search-input {
@@ -23,7 +76,7 @@
 }
 
 .titled-pane-sidebar {
-    -fx-text-fill: #ddd;
+    -fx-text-fill: text3;
     -fx-font-size: 1.85em;
 }
 
@@ -31,7 +84,7 @@
     -fx-border-width: 0;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
-    -fx-background-color: #141414;
+    -fx-background-color: background-sidebar;
 }
 
 .titled-pane-sidebar > .title > .arrow-button > .arrow {
@@ -42,7 +95,7 @@
 .titled-pane-sidebar > .content {
     -fx-padding: 0;
     -fx-border: null;
-    -fx-background-color: #191919;
+    -fx-background-color: background-main;
     -fx-background-insets: 0;
 }
 
@@ -58,7 +111,7 @@
 
 .sidebar-scroll-pane > .scroll-bar:vertical {
     -fx-background-insets: 0;
-    -fx-background-color: #141414;
+    -fx-background-color: background-sidebar;
     -fx-padding: 1 0 1 0;
 }
 
@@ -83,19 +136,19 @@
 
 .treecell-sidebar {
     -fx-background-insets: 0;
-    -fx-background-color: #191919;
-    -fx-text-fill: #aaa;
+    -fx-background-color: background-main;
+    -fx-text-fill: text1;
     -fx-font-size: 0.75em;
 }
 
 .treecell-sidebar:hover {
-    -fx-text-fill: #ddd;
+    -fx-text-fill: text3;
 }
 
 .treecell-sidebar:selected {
     -fx-border-width: 0px 0px 0px 0.333333em;
-    -fx-border-color: #990000;
-    -fx-text-fill: #eee;
+    -fx-border-color: highlight-color;
+    -fx-text-fill: text4;
 }
 
 .treecell-sidebar:playing {
@@ -104,23 +157,27 @@
 
 /* NOW PLAYING */
 .now-playing {
-    -fx-background-color: #191919;
+    -fx-background-color: background-nowplaying;
     -fx-padding: 10 0 10 0;
 }
 
 .title-label {
     -fx-font-size: 2.1em;
-    -fx-text-fill: #bbb;
+    -fx-text-fill: text2;
 }
 
 .artist-label {
     -fx-font-size: 1.55em;
-    -fx-text-fill: #aaa;
+    -fx-text-fill: text1;
+}
+
+.lbl-time {
+    -fx-text-fill: text1;
 }
 
 /* CONTROL BAR */
 .control-bar {
-    -fx-background-color: #0d0d0d;
+    -fx-background-color: background-controlbar;
 }
 
 .icn-button {
@@ -133,4 +190,91 @@
 
 .icn-button:pressed {
     -fx-opacity: 0.85;
+}
+
+.btn-settings:hover {
+    -fx-opacity: 0.8;
+}
+
+.btn-settings:pressed {
+    -fx-opacity: 0.6;
+}
+
+.time-bar {
+    -fx-indeterminate-bar-length: 0;
+    -fx-indeterminate-bar-escape: false;
+    -fx-indeterminate-bar-flip: false;
+    -fx-indeterminate-bar-animation-time: 2;
+}
+.time-bar > .bar {
+    -fx-background-color: highlight-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-padding: 0.25em;
+}
+.time-bar > .track {
+    -fx-background-color: background-sidebar;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
+/* SETTINGS */
+.settings-item {
+    -fx-padding: 1.5em;
+    -fx-background-color: background-highlight;
+    -fx-pref-width: 13em;
+    -fx-pref-height: 14em;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.settings-item:hover {
+    -fx-background-color: #1f1f1f;
+}
+
+.settings-item:pressed {
+    -fx-background-color: #1c1c1c;
+}
+
+.settings-item > .label {
+    -fx-font-size: 1.5em;
+    -fx-text-fill: text2;
+}
+
+/* CENTER */
+.center-pane {
+    -fx-background-color: background-main;
+}
+
+/* GENERAL SETTINGS */
+.settings-page-title {
+    -fx-text-fill: text3;
+    -fx-font-size: 3em;
+}
+
+.settings-page-title2 {
+    -fx-text-fill: text1;
+    -fx-font-size: 1.5em;
+}
+
+/* MP3 IMPORT */
+.mp3-import > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-font-size: 1.25em;
+    -fx-background-color: control-body-dark;
+    -fx-text-fill: text2;
+}
+
+.mp3-import > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected {
+    -fx-background-color: highlight-color;
+    -fx-table-cell-border-color: derive(highlight-color, 20%);
+}
+
+.mp3-import > .list-view {
+    -fx-background-color: control-body-dark;
+    -fx-background-insets: 0;
+    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.8), 15, 0, 0, 0);
+}
+
+.mp3-import-button {
+    -fx-font-size: 1.25em;
 }
