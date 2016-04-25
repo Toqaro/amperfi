@@ -13,7 +13,7 @@ before_install:
   - sudo apt-get install -y lame
 
 script:
-  - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; nosetests --with-coverage --cover-package=src"
+  - sudo -E su $USER -c "gradle check"
 
 env:
   global:
