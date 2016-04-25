@@ -38,6 +38,7 @@ public class LibraryDatabase {
     }
 
     public LibraryDatabase(File databaseLocation) throws SQLException, InvalidDataException, IOException, UnsupportedTagException {
+        if(!databaseLocation.isAbsolute()) databaseLocation = databaseLocation.getAbsoluteFile();
         if (!databaseLocation.exists()) {
             if (!databaseLocation.getParentFile().mkdirs() && !databaseLocation.getParentFile().exists())
                 throw new IOException("Unable to create database directory");
@@ -79,10 +80,7 @@ public class LibraryDatabase {
 
         queryFactory = new SQLQueryFactory(config, dataSource);
 
-        QLibraryFile libFile = QLibraryFile.LibraryFile;
-        List<LibraryFile> files = queryFactory.select(Projections.bean(LibraryFile.class, libFile.all())).from(libFile).fetch();
-        this.files.addAll(files);
-
+        reloadFiles();
         reloadFolders();
     }
 
@@ -135,6 +133,13 @@ public class LibraryDatabase {
         QLibraryFolder libFolder = QLibraryFolder.LibraryFolder;
         List<LibraryFolder> folders = queryFactory.select(Projections.bean(LibraryFolder.class, libFolder.all())).from(libFolder).fetch();
         this.folders.addAll(folders.stream().map(LibraryFolder::getPath).collect(Collectors.toList()));
+    }
+
+    public void reloadFiles() {
+        files.clear();
+        QLibraryFile libFile = QLibraryFile.LibraryFile;
+        List<LibraryFile> files = queryFactory.select(Projections.bean(LibraryFile.class, libFile.all())).from(libFile).fetch();
+        this.files.addAll(files);
     }
 
     /**
