@@ -1,5 +1,20 @@
 language: java
+sudo: required
+
 jdk:
   - oraclejdk8
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo usermod -a -G audio travis
+  - sudo apt-get install -y portaudio19-dev
+  - sudo apt-get install -y libasound2-dev alsa-utils alsa-oss
+  - sudo bash testResources/prep-dummy-soundcard.sh
+  - sudo apt-get install -y lame
+
+env:
+  global:
+    AUDIODEV=null
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
