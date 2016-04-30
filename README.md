@@ -4,5 +4,8 @@
 [![java](https://img.shields.io/badge/Java-8-blue.svg)]()
 [![Github All Releases](https://img.shields.io/github/downloads/molaynoxx/ammp/total.svg?maxAge=3600)](https://github.com/MolaynoxX/AMMP/releases)
 
-# AMMP
+# Amperfi Music Manager
 Remake of my previous try at a media player. (https://github.com/MolaynoxX/MolaynoxX-Media-Manager)
+
+
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
