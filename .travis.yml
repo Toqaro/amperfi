@@ -4,6 +4,10 @@ sudo: required
 jdk:
   - oraclejdk8
 
+addons:
+  ssh_known_hosts:
+    - kneecapdev.com
+
 before_install:
   - pip install --user codecov
 
@@ -17,3 +21,6 @@ cache:
 
 after_success:
   - codecov
+  - gradle assemble -Pportable=true
+  - chmod +x deploy.sh
+  - ./deploy.sh
