@@ -39,7 +39,7 @@ jar {
                 'Implementation-Version': version,
                 'Main-Class': 'Amperfi')
     }
-    baseName = project.name + (portable ? '-portable' : '')
+    baseName = project.name + (portable == 'true' ? '-portable' : '')
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
