@@ -18,6 +18,7 @@ version '0.0.1-alpha1'
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 def portable = isPortable()
