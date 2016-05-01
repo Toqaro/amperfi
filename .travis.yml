@@ -1,5 +1,5 @@
 language: java
-sudo: required
+sudo: false
 
 jdk:
   - oraclejdk8
@@ -7,11 +7,12 @@ jdk:
 addons:
   ssh_known_hosts:
     - kneecapdev.com
+  apt:
+    packages:
+      - sshpass
 
 before_install:
   - pip install --user codecov
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq sshpass
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
