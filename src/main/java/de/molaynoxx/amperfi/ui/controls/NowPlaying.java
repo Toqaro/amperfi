@@ -1,4 +1,4 @@
-package de.molaynoxx.amperfi.ui;
+package de.molaynoxx.amperfi.ui.controls;
 
 import de.molaynoxx.amperfi.Amperfi;
 import javafx.geometry.Pos;

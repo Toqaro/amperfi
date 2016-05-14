@@ -1,4 +1,4 @@
-package de.molaynoxx.amperfi.ui.cell;
+package de.molaynoxx.amperfi.ui.controls.cell;
 
 import javafx.scene.control.TreeCell;
 

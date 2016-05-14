@@ -1,4 +1,4 @@
-package de.molaynoxx.amperfi.ui.action;
+package de.molaynoxx.amperfi.ui.controller;
 
 import de.molaynoxx.amperfi.Amperfi;
 import de.molaynoxx.amperfi.task.TaskSyncFolders;

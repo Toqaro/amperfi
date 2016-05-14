@@ -1,7 +1,7 @@
 package de.molaynoxx.amperfi.ui.view;
 
 import de.molaynoxx.amperfi.Amperfi;
-import de.molaynoxx.amperfi.ui.action.Mp3ImportController;
+import de.molaynoxx.amperfi.ui.controller.Mp3ImportController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

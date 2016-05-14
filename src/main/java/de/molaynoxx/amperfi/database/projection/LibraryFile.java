@@ -352,5 +352,40 @@ public class LibraryFile {
         }
     }
 
+    public StringProperty getTagProperty(ID3Helper.ID3Tag tag) {
+        switch (tag) {
+            case ALBUMARTIST:
+                return albumartistProperty;
+            case ALBUM:
+                return albumProperty;
+            case ARTIST:
+                return artistProperty;
+            case BPM:
+                return bpmProperty;
+            case COMPOSER:
+                return composerProperty;
+            case DATE:
+                return dateProperty;
+            case LENGTH:
+                return lengthProperty;
+            case PUBLISHER:
+                return publisherProperty;
+            case COMMENT:
+                return commentProperty;
+            case GENRE:
+                return genreProperty;
+            case TITLE:
+                return titleProperty;
+            case TRACK:
+                return trackProperty;
+            case YEAR:
+                return yearProperty;
+            case RATING:
+                return ratingProperty;
+            default:
+                return null;
+        }
+    }
+
 }
 

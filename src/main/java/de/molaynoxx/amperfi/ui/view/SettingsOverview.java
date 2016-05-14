@@ -1,6 +1,6 @@
 package de.molaynoxx.amperfi.ui.view;
 
-import de.molaynoxx.amperfi.ui.SettingsItem;
+import de.molaynoxx.amperfi.ui.controls.SettingsItem;
 import javafx.scene.layout.FlowPane;
 
 public class SettingsOverview extends FlowPane implements Viewable {

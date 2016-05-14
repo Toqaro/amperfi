@@ -1,9 +1,9 @@
 package de.molaynoxx.amperfi.ui;
 
-import de.molaynoxx.amperfi.ui.view.Mp3Import;
-import de.molaynoxx.amperfi.ui.view.Mp3ImportProgress;
-import de.molaynoxx.amperfi.ui.view.SettingsOverview;
-import de.molaynoxx.amperfi.ui.view.Viewable;
+import de.molaynoxx.amperfi.id3.ID3Helper;
+import de.molaynoxx.amperfi.ui.controls.ControllerBar;
+import de.molaynoxx.amperfi.ui.controls.Sidebar;
+import de.molaynoxx.amperfi.ui.view.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -21,6 +21,7 @@ public class AmperfiScene extends Scene {
     public final SettingsOverview settings;
     public final Mp3Import mp3Import;
     public final Mp3ImportProgress mp3ImportProgress;
+    public final LibraryView libraryView;
 
     public AmperfiScene() {
         super(new StackPane());
@@ -60,6 +61,10 @@ public class AmperfiScene extends Scene {
         mp3ImportProgress = new Mp3ImportProgress();
         mp3ImportProgress.setVisible(false);
         centerPane.getChildren().add(mp3ImportProgress);
+
+        libraryView = new LibraryView(ID3Helper.ID3Tag.TITLE, ID3Helper.ID3Tag.ARTIST, ID3Helper.ID3Tag.ALBUM, ID3Helper.ID3Tag.RATING);
+        libraryView.setVisible(false);
+        centerPane.getChildren().add(libraryView);
     }
 
     public void showView(Viewable control) {

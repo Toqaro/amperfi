@@ -1,7 +1,7 @@
-package de.molaynoxx.amperfi.ui.factory;
+package de.molaynoxx.amperfi.ui.controls.factory;
 
-import de.molaynoxx.amperfi.ui.SidebarTreeView;
-import de.molaynoxx.amperfi.ui.cell.SidebarTreeCell;
+import de.molaynoxx.amperfi.ui.controls.SidebarTreeView;
+import de.molaynoxx.amperfi.ui.controls.cell.SidebarTreeCell;
 import javafx.application.Platform;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;

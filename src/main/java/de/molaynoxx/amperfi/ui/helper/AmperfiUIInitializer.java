@@ -2,7 +2,7 @@ package de.molaynoxx.amperfi.ui.helper;
 
 import de.molaynoxx.amperfi.Amperfi;
 import de.molaynoxx.amperfi.ui.AmperfiScene;
-import de.molaynoxx.amperfi.ui.SettingsItem;
+import de.molaynoxx.amperfi.ui.controls.SettingsItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -27,7 +27,9 @@ public class AmperfiUIInitializer {
         Amperfi.ui.settings.addSettingsItem(new SettingsItem(new Image(Amperfi.class.getResourceAsStream("/icn/icnVisualizer.png")), "Visualizer"));
         Amperfi.ui.settings.addSettingsItem(new SettingsItem(new Image(Amperfi.class.getResourceAsStream("/icn/icnWebInterface.png")), "Web Interface"));
 
-        Amperfi.ui.showView(Amperfi.ui.settings);
+        Amperfi.ui.showView(Amperfi.ui.libraryView);
+
+        Amperfi.ui.libraryView.getItems().addAll(Amperfi.db.getFiles());
 
         primaryStage.show();
     }
