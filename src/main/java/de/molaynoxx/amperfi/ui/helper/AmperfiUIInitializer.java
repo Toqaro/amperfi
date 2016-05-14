@@ -1,8 +1,11 @@
 package de.molaynoxx.amperfi.ui.helper;
 
 import de.molaynoxx.amperfi.Amperfi;
+import de.molaynoxx.amperfi.player.playlist.EntireLibraryPlaylist;
 import de.molaynoxx.amperfi.ui.AmperfiScene;
+import de.molaynoxx.amperfi.ui.controller.SidebarController;
 import de.molaynoxx.amperfi.ui.controls.SettingsItem;
+import de.molaynoxx.amperfi.ui.controls.state.SidebarState;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -29,7 +32,7 @@ public class AmperfiUIInitializer {
 
         Amperfi.ui.showView(Amperfi.ui.libraryView);
 
-        Amperfi.ui.libraryView.getItems().addAll(Amperfi.db.getFiles());
+        Amperfi.ui.sidebar.controller.showMode(new SidebarState(SidebarController.LibraryViewMode.LIBRARY, new EntireLibraryPlaylist()));
 
         primaryStage.show();
     }

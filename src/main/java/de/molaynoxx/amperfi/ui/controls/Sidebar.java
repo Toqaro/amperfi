@@ -1,10 +1,7 @@
 package de.molaynoxx.amperfi.ui.controls;
 
-import de.molaynoxx.amperfi.Amperfi;
-import de.molaynoxx.amperfi.database.model.QLibraryFile;
-import de.molaynoxx.amperfi.id3.ID3Helper;
-import de.molaynoxx.amperfi.player.playlist.DatabasePlaylist;
 import de.molaynoxx.amperfi.player.playlist.Playlist;
+import de.molaynoxx.amperfi.ui.controller.SidebarController;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
@@ -12,10 +9,13 @@ import javafx.scene.layout.VBox;
 
 public class Sidebar extends VBox {
 
-    private final NowPlaying nowPlaying;
-    private final SidebarTreeView<Playlist> treeViewGenres;
-    private final SidebarTreeView<Playlist> treeViewAlbums;
-    private final SidebarTreeView<Playlist> treeViewArtists;
+    public final NowPlaying nowPlaying;
+    public final SidebarTreeView<Playlist> treeViewGenres;
+    public final SidebarTreeView<Playlist> treeViewAlbums;
+    public final SidebarTreeView<Playlist> treeViewArtists;
+    public final Label lblLibrary;
+
+    public final SidebarController controller = new SidebarController(this);
 
     public Sidebar() {
         super();
@@ -44,6 +44,10 @@ public class Sidebar extends VBox {
         sidebarContainer.setPrefWidth(300);
         sidebarContainer.getStyleClass().add("sidebar");
 
+        lblLibrary = new Label("Library");
+        lblLibrary.setOnMousePressed(controller.displayLibraryHandler);
+        sidebarContainer.getChildren().add(lblLibrary);
+
         Accordion acc = new Accordion();
 
         TitledPane tpArtists = new TitledPane();
@@ -51,6 +55,7 @@ public class Sidebar extends VBox {
         tpArtists.getStyleClass().add("titled-pane-sidebar");
 
         treeViewArtists = new SidebarTreeView<>();
+        treeViewArtists.getSelectionModel().getSelectedItems().addListener(controller.displayArtistHandler);
         tpArtists.setContent(treeViewArtists);
 
         TitledPane tpAlbums = new TitledPane();
@@ -58,6 +63,7 @@ public class Sidebar extends VBox {
         tpAlbums.getStyleClass().add("titled-pane-sidebar");
 
         treeViewAlbums = new SidebarTreeView<>();
+        treeViewAlbums.getSelectionModel().getSelectedItems().addListener(controller.displayAlbumHandler);
         tpAlbums.setContent(treeViewAlbums);
 
         TitledPane tpGenres = new TitledPane();
@@ -65,6 +71,7 @@ public class Sidebar extends VBox {
         tpGenres.getStyleClass().add("titled-pane-sidebar");
 
         treeViewGenres = new SidebarTreeView<>();
+        treeViewGenres.getSelectionModel().getSelectedItems().addListener(controller.displayGenreHandler);
         tpGenres.setContent(treeViewGenres);
 
         acc.getPanes().addAll(tpArtists, tpAlbums, tpGenres);
@@ -79,27 +86,7 @@ public class Sidebar extends VBox {
         // Make sure the upper half of the sidebar is always big enough so the NowPlaying Control is touching the ControlBar
         sidebarContainer.minHeightProperty().bind(this.heightProperty().subtract(nowPlaying.heightProperty()));
 
-        updateSidebar();
-    }
-
-    public void updateSidebar() {
-        treeViewArtists.getRoot().getChildren().clear();
-        for (String artist : Amperfi.db.getTags(ID3Helper.ID3Tag.ARTIST)) {
-            if(artist == null) continue;
-            treeViewArtists.getRoot().getChildren().add(new TreeItem<>(new DatabasePlaylist(artist, QLibraryFile.LibraryFile.artist.like(artist))));
-        }
-
-        treeViewAlbums.getRoot().getChildren().clear();
-        for (String album : Amperfi.db.getTags(ID3Helper.ID3Tag.ALBUM)) {
-            if(album == null) continue;
-            treeViewAlbums.getRoot().getChildren().add(new TreeItem<>(new DatabasePlaylist(album, QLibraryFile.LibraryFile.album.like(album))));
-        }
-
-        treeViewGenres.getRoot().getChildren().clear();
-        for (String genre : Amperfi.db.getTags(ID3Helper.ID3Tag.GENRE)) {
-            if(genre == null) continue;
-            treeViewGenres.getRoot().getChildren().add(new TreeItem<>(new DatabasePlaylist(genre, QLibraryFile.LibraryFile.genre.like(genre))));
-        }
+        controller.updateSidebar();
     }
 
 }

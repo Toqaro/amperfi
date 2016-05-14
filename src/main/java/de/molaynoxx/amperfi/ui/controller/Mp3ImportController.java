@@ -2,6 +2,7 @@ package de.molaynoxx.amperfi.ui.controller;
 
 import de.molaynoxx.amperfi.Amperfi;
 import de.molaynoxx.amperfi.task.TaskSyncFolders;
+import de.molaynoxx.amperfi.ui.view.Mp3Import;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.DirectoryChooser;
@@ -9,12 +10,16 @@ import javafx.stage.DirectoryChooser;
 import java.io.File;
 import java.util.List;
 
-public final class Mp3ImportController {
+public final class Mp3ImportController extends Controller<Mp3Import> {
 
     public final AddFolderHandler addFolderHandler = new AddFolderHandler();
     public final SynchronizeFolderHandler synchronizeFolderHandler = new SynchronizeFolderHandler();
 
-    final class AddFolderHandler implements EventHandler<ActionEvent> {
+    public Mp3ImportController(Mp3Import control) {
+        super(control);
+    }
+
+    private final class AddFolderHandler implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
@@ -36,7 +41,7 @@ public final class Mp3ImportController {
 
     }
 
-    final class SynchronizeFolderHandler implements EventHandler<ActionEvent> {
+    private final class SynchronizeFolderHandler implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {

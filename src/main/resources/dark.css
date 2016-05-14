@@ -130,6 +130,23 @@
     -fx-background-insets: 0;
 }
 
+.sidebar > .label {
+    -fx-text-fill: text3;
+    -fx-font-size: 1.85em;
+    -fx-padding: 0.3333em 0.75em 0.3333em 1.333333em;
+    -fx-cursor: hand;
+}
+
+.sidebar > .label:activated {
+-fx-padding: 0.3333em 0.75em 0.3333em 1em;
+    -fx-border-width: 0px 0px 0px 0.333333em;
+    -fx-border-color: highlight-color;
+}
+
+.sidebar > .label:playing {
+    -fx-text-fill: #009999;
+}
+
 .titled-pane-sidebar {
     -fx-text-fill: text3;
     -fx-font-size: 1.85em;

@@ -17,7 +17,7 @@ public class Mp3Import extends VBox implements Viewable {
     private final ListView<String> lvFolders;
 
     public Mp3Import() {
-        Mp3ImportController controller = new Mp3ImportController();
+        Mp3ImportController controller = new Mp3ImportController(this);
 
         getStyleClass().add("mp3-import");
         setAlignment(Pos.CENTER);

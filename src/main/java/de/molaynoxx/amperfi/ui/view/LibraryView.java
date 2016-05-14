@@ -2,11 +2,14 @@ package de.molaynoxx.amperfi.ui.view;
 
 import de.molaynoxx.amperfi.database.projection.LibraryFile;
 import de.molaynoxx.amperfi.id3.ID3Helper;
+import de.molaynoxx.amperfi.ui.controller.LibraryViewController;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class LibraryView extends TableView<LibraryFile> implements Viewable {
+
+    public final LibraryViewController controller = new LibraryViewController(this);
 
     public LibraryView(ID3Helper.ID3Tag... tags) {
         getStyleClass().add("library-view");
