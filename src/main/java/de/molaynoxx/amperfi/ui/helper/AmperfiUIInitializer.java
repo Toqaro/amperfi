@@ -23,6 +23,10 @@ public class AmperfiUIInitializer {
         primaryStage.setTitle("Amperfi");
 
         /* Add settings to UI */
+        SettingsItem si_browse = new SettingsItem(new Image(Amperfi.class.getResourceAsStream("/icn/icnBrowse.png")), "Browse Library");
+        si_browse.setOnMouseClicked(action -> Amperfi.ui.showView(Amperfi.ui.libraryView));
+        Amperfi.ui.settings.addSettingsItem(si_browse);
+
         SettingsItem si_mp3Import = new SettingsItem(new Image(Amperfi.class.getResourceAsStream("/icn/icnImport.png")), "Import mp3s");
         si_mp3Import.setOnMouseClicked(action -> Amperfi.ui.showView(Amperfi.ui.mp3Import));
         Amperfi.ui.settings.addSettingsItem(si_mp3Import);
@@ -32,7 +36,7 @@ public class AmperfiUIInitializer {
 
         Amperfi.ui.showView(Amperfi.ui.libraryView);
 
-        Amperfi.ui.sidebar.controller.showMode(new SidebarState(SidebarController.LibraryViewMode.LIBRARY, new EntireLibraryPlaylist()));
+        Amperfi.ui.sidebar.controller.showMode(new SidebarState(SidebarController.LibraryViewMode.LIBRARY, EntireLibraryPlaylist.INSTANCE));
 
         primaryStage.show();
     }

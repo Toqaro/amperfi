@@ -13,9 +13,10 @@ import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.event.EventHandler;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
-public class SidebarController extends Controller<Sidebar> {
+public class SidebarController extends AbstractController<Sidebar> {
 
     public enum LibraryViewMode {
         LIBRARY, TAG, PLAYLIST, SEARCH
@@ -28,6 +29,10 @@ public class SidebarController extends Controller<Sidebar> {
     public final ListChangeListener<? super TreeItem<Playlist>> displayArtistHandler = new DisplayTagHandler(ID3Helper.ID3Tag.ARTIST);
     public final ListChangeListener<? super TreeItem<Playlist>> displayAlbumHandler = new DisplayTagHandler(ID3Helper.ID3Tag.ALBUM);
     public final ListChangeListener<? super TreeItem<Playlist>> displayGenreHandler = new DisplayTagHandler(ID3Helper.ID3Tag.GENRE);
+    public final EventHandler<? super MouseEvent> playLibraryHandler = new PlayLibraryHandler();
+    public final EventHandler<? super MouseEvent> playArtistHandler = new PlayTagHandler(ID3Helper.ID3Tag.ARTIST);
+    public final EventHandler<? super MouseEvent> playAlbumHandler = new PlayTagHandler(ID3Helper.ID3Tag.ALBUM);
+    public final EventHandler<? super MouseEvent> playGenreHandler = new PlayTagHandler(ID3Helper.ID3Tag.GENRE);
 
     public SidebarController(Sidebar control) {
         super(control);
@@ -74,7 +79,7 @@ public class SidebarController extends Controller<Sidebar> {
 
         @Override
         public void handle(MouseEvent event) {
-            showMode(new SidebarState(LibraryViewMode.LIBRARY, new EntireLibraryPlaylist()));
+            showMode(new SidebarState(LibraryViewMode.LIBRARY, EntireLibraryPlaylist.INSTANCE));
         }
 
     }
@@ -95,4 +100,41 @@ public class SidebarController extends Controller<Sidebar> {
 
     }
 
+    private final class PlayLibraryHandler implements EventHandler<MouseEvent> {
+
+        @Override
+        public void handle(MouseEvent event) {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                Amperfi.playbackController.playPlaylist(EntireLibraryPlaylist.INSTANCE);
+            }
+        }
+
+    }
+
+    private class PlayTagHandler implements EventHandler<MouseEvent> {
+
+        private final ID3Helper.ID3Tag tag;
+
+        public PlayTagHandler(ID3Helper.ID3Tag tag) {
+            this.tag = tag;
+        }
+
+        @Override
+        public void handle(MouseEvent event) {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                switch (tag) {
+                    case ARTIST:
+                        Amperfi.playbackController.playPlaylist(control.treeViewArtists.getSelectionModel().getSelectedItem().getValue());
+                        break;
+                    case ALBUM:
+                        Amperfi.playbackController.playPlaylist(control.treeViewAlbums.getSelectionModel().getSelectedItem().getValue());
+                        break;
+                    case GENRE:
+                        Amperfi.playbackController.playPlaylist(control.treeViewGenres.getSelectionModel().getSelectedItem().getValue());
+                        break;
+                }
+            }
+        }
+
+    }
 }

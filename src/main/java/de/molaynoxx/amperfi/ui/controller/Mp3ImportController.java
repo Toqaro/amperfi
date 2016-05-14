@@ -10,7 +10,7 @@ import javafx.stage.DirectoryChooser;
 import java.io.File;
 import java.util.List;
 
-public final class Mp3ImportController extends Controller<Mp3Import> {
+public final class Mp3ImportController extends AbstractController<Mp3Import> {
 
     public final AddFolderHandler addFolderHandler = new AddFolderHandler();
     public final SynchronizeFolderHandler synchronizeFolderHandler = new SynchronizeFolderHandler();

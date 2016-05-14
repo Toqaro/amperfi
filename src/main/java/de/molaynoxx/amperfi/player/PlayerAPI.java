@@ -133,6 +133,7 @@ public class PlayerAPI {
         currentPlayer.play();
         currentPlayer.setGain(-80 * (1 - volume));
         playbackUpdater = new Thread(new PlaybackUpdater(currentPlayer, this::afterPlayback, this));
+        playbackUpdater.setDaemon(true);
         playbackUpdater.start();
     }
 
@@ -177,6 +178,7 @@ public class PlayerAPI {
     public void play() {
         if(status == PlayerStatus.PAUSED) {
             currentPlayer.play();
+            setStatus(PlayerStatus.PLAYING);
         } else if(status == PlayerStatus.STOPPED) {
             startPlayback();
         }
@@ -193,6 +195,21 @@ public class PlayerAPI {
         currentIndex -= loop ? 1 : 2;
         currentIndex %= currentPlaylist.size();
         afterPlayback();
+    }
+
+    public int getPosition() {
+        if (currentPlayer == null) return 0;
+        return currentPlayer.position();
+    }
+
+    public int getLength() {
+        if (currentPlayer == null) return 0;
+        return currentPlayer.length();
+    }
+
+    public LibraryFile getCurrentTitle() {
+        if (currentPlaylist.size() == 0) return null;
+        return currentPlaylist.get(currentIndex);
     }
 
 }

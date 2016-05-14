@@ -1,6 +1,7 @@
 package de.molaynoxx.amperfi.ui.controls;
 
 import de.molaynoxx.amperfi.Amperfi;
+import de.molaynoxx.amperfi.ui.controller.NowPlayingController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -10,9 +11,11 @@ import javafx.scene.layout.VBox;
 
 public class NowPlaying extends VBox {
 
-    private final ImageView coverView;
-    private final Label title;
-    private final Label artist;
+    public final ImageView coverView;
+    public final Label title;
+    public final Label artist;
+
+    public final NowPlayingController controller = new NowPlayingController(this);
 
     public NowPlaying() {
         super();

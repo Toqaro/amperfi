@@ -204,7 +204,7 @@
 /* NOW PLAYING */
 .now-playing {
     -fx-background-color: background-nowplaying;
-    -fx-padding: 10 0 10 0;
+    -fx-padding: 10 5 10 10;
 }
 
 .title-label {

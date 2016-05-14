@@ -13,6 +13,7 @@ public class SidebarTreeViewCellFactory<T> implements Callback<TreeView<T>,TreeC
     private final Runnable resizer;
 
     public SidebarTreeViewCellFactory(SidebarTreeView<T> treeView) {
+        // Resizes the TreeView as the titled pane expands based on children count and size
         resizer = () -> {
             if(lastCell == null) return;
             double size = lastCell.getHeight() * treeView.getRoot().getChildren().size();

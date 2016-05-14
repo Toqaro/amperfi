@@ -7,6 +7,11 @@ import java.util.List;
 
 public class EntireLibraryPlaylist implements Playlist {
 
+    public static EntireLibraryPlaylist INSTANCE = new EntireLibraryPlaylist();
+
+    private EntireLibraryPlaylist() {
+    }
+
     @Override
     public List<LibraryFile> getTracks() {
         return Amperfi.db.getFiles();

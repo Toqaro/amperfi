@@ -1,10 +1,10 @@
 package de.molaynoxx.amperfi.ui.controller;
 
-public abstract class Controller<T> {
+public abstract class AbstractController<T> {
 
     protected final T control;
 
-    public Controller(T control) {
+    public AbstractController(T control) {
         this.control = control;
     }
 
