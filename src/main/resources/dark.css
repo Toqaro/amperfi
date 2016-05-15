@@ -3,6 +3,7 @@
     highlight-color: #2E2372;
     highlight-playing-color: #506F99;
     background-sidebar: #111111;
+    background-sidebar-element: #090909;
     background-controlbar: #0d0d0d;
     background-nowplaying: #141414;
     background-main: #191919;
@@ -168,7 +169,7 @@
 .titled-pane-sidebar > .content {
     -fx-padding: 0;
     -fx-border: null;
-    -fx-background-color: background-main;
+    -fx-background-color: background-sidebar;
     -fx-background-insets: 0;
 }
 
@@ -183,7 +184,7 @@
 
 .treecell-sidebar {
     -fx-background-insets: 0;
-    -fx-background-color: background-main;
+    -fx-background-color: background-sidebar;
     -fx-text-fill: text1;
     -fx-font-size: 0.75em;
 }
@@ -405,10 +406,11 @@
 }
 
 .library-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell {
-    -fx-padding: 0.166667em; /* 2px, plus border adds 1px */
+    -fx-padding: 0.333334em; /* 2px, plus border adds 1px */
     -fx-background-color: transparent;
     -fx-border-color: transparent -fx-table-cell-border-color transparent transparent;
-    -fx-cell-size: 2.0em; /* 24 */
+    -fx-cell-size: 3em; /* default was 24 (2em) */
+    -fx-font-size: 1.25em;
     -fx-text-fill: text2;
 }
 
