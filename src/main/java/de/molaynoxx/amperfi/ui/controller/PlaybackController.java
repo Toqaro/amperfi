@@ -29,20 +29,32 @@ public class PlaybackController {
     }
 
     public void playPlaylist(Playlist pls) {
-        playPlaylist(pls, 0);
-    }
-
-    public void playPlaylist(Playlist pls, int pos) {
         if (playerAPI.getStatus() != PlayerAPI.PlayerStatus.STOPPED) playerAPI.stop();
         currentlyPlaying.set(pls);
         playerAPI.setCurrentPlaylist(pls.getTracks());
-        playerAPI.setCurrentIndex(pos);
+        playerAPI.setCurrentIndex(0);
+        playerAPI.play();
+    }
+
+    public void playPlaylist(Playlist pls, LibraryFile lf) {
+        if (playerAPI.getStatus() != PlayerAPI.PlayerStatus.STOPPED) playerAPI.stop();
+        if (pls != currentlyPlaying.get()) {
+            playerAPI.setCurrentPlaylist(pls.getTracks());
+            currentlyPlaying.set(pls);
+        }
+
+        int index = 0;
+        for (index = 0; index < playerAPI.getCurrentPlaylist().size(); index++) {
+            if (playerAPI.getCurrentPlaylist().get(index).getFileId() == lf.getFileId()) break;
+        }
+        playerAPI.setCurrentIndex(index);
         playerAPI.play();
     }
 
     public void play() {
         if (playerAPI.getCurrentPlaylist().size() == 0) {
             playerAPI.setCurrentPlaylist(Amperfi.ui.libraryView.controller.getCurrentPlaylist().getTracks());
+            currentlyPlaying.set(Amperfi.ui.libraryView.controller.getCurrentPlaylist());
         }
         playerAPI.play();
     }

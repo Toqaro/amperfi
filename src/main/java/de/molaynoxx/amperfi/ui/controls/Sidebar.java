@@ -45,6 +45,7 @@ public class Sidebar extends VBox {
         sidebarContainer.getStyleClass().add("sidebar");
 
         lblLibrary = new Label("Library");
+        lblLibrary.setPrefWidth(300);
         lblLibrary.setOnMousePressed(controller.displayLibraryHandler);
         lblLibrary.setOnMouseClicked(controller.playLibraryHandler);
         sidebarContainer.getChildren().add(lblLibrary);

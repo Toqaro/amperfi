@@ -2,6 +2,7 @@ package de.molaynoxx.amperfi.ui.controls;
 
 import de.molaynoxx.amperfi.Amperfi;
 import de.molaynoxx.amperfi.ui.controller.NowPlayingController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -27,6 +28,7 @@ public class NowPlaying extends VBox {
         coverView.setFitWidth(200);
         coverView.setImage(new Image(Amperfi.class.getResourceAsStream("/NoCover.png")));
         getChildren().add(coverView);
+        VBox.setMargin(coverView, new Insets(0, 0, 10, 0));
 
         title = new Label("Generic Title");
         title.getStyleClass().add("title-label");

@@ -9,6 +9,8 @@ import de.molaynoxx.amperfi.player.playlist.Playlist;
 import de.molaynoxx.amperfi.ui.controls.Sidebar;
 import de.molaynoxx.amperfi.ui.controls.state.SidebarState;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.event.EventHandler;
@@ -36,6 +38,8 @@ public class SidebarController extends AbstractController<Sidebar> {
 
     public SidebarController(Sidebar control) {
         super(control);
+
+        Amperfi.playbackController.currentlyPlayingProperty().addListener(new PlaylistChangedListener());
     }
 
     public void updateSidebar() {
@@ -60,6 +64,7 @@ public class SidebarController extends AbstractController<Sidebar> {
 
 
     public void showMode(SidebarState state) {
+        Amperfi.ui.showView(Amperfi.ui.libraryView);
         if (state.getLibraryViewMode() == LibraryViewMode.LIBRARY)
             control.lblLibrary.pseudoClassStateChanged(activated, true);
         else
@@ -137,4 +142,14 @@ public class SidebarController extends AbstractController<Sidebar> {
         }
 
     }
+
+    private class PlaylistChangedListener implements ChangeListener<Playlist> {
+
+        @Override
+        public void changed(ObservableValue<? extends Playlist> observable, Playlist oldValue, Playlist newValue) {
+            control.lblLibrary.pseudoClassStateChanged(playing, newValue == EntireLibraryPlaylist.INSTANCE);
+        }
+
+    }
+
 }

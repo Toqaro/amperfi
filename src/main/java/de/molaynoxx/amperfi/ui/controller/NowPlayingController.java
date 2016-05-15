@@ -6,8 +6,13 @@ import de.molaynoxx.amperfi.ui.controls.NowPlaying;
 import de.molaynoxx.amperfi.ui.helper.CoverUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.image.Image;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NowPlayingController extends AbstractController<NowPlaying> {
+
+    private static Logger log = LoggerFactory.getLogger(NowPlayingController.class);
 
     public NowPlayingController(NowPlaying control) {
         super(control);
@@ -17,6 +22,8 @@ public class NowPlayingController extends AbstractController<NowPlaying> {
 
     private class CurrentTitleChangeListener implements ChangeListener<LibraryFile> {
 
+        private Image genericCover = new Image(Amperfi.class.getResourceAsStream("/NoCover.png"));
+
         @Override
         public void changed(ObservableValue<? extends LibraryFile> observable, LibraryFile oldValue, LibraryFile newValue) {
             control.title.setText(newValue.getTitle());
@@ -25,7 +32,8 @@ public class NowPlayingController extends AbstractController<NowPlaying> {
             try {
                 control.coverView.setImage(CoverUtils.loadCover(newValue));
             } catch (Exception e) {
-                e.printStackTrace();
+                log.debug("Couldn't load cover", e);
+                control.coverView.setImage(genericCover);
             }
         }
 

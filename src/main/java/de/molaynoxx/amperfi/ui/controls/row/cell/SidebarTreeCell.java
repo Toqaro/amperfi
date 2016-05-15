@@ -1,8 +1,12 @@
-package de.molaynoxx.amperfi.ui.controls.cell;
+package de.molaynoxx.amperfi.ui.controls.row.cell;
 
+import de.molaynoxx.amperfi.Amperfi;
+import javafx.css.PseudoClass;
 import javafx.scene.control.TreeCell;
 
 public class SidebarTreeCell<T> extends TreeCell<T> {
+
+    private static PseudoClass playing = PseudoClass.getPseudoClass("playing");
 
     public SidebarTreeCell() {
         super();
@@ -12,6 +16,10 @@ public class SidebarTreeCell<T> extends TreeCell<T> {
         setWidth(285);
 
         getStyleClass().add("treecell-sidebar");
+
+        Amperfi.playbackController.currentlyPlayingProperty().addListener((obv, oldVal, newVal) -> {
+            this.pseudoClassStateChanged(playing, getItem() == newVal);
+        });
     }
 
     @Override

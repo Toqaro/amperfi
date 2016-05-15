@@ -1,6 +1,7 @@
 /* VARIABLES */
 * {
     highlight-color: #2E2372;
+    highlight-playing-color: #506F99;
     background-sidebar: #111111;
     background-controlbar: #0d0d0d;
     background-nowplaying: #141414;
@@ -144,7 +145,7 @@
 }
 
 .sidebar > .label:playing {
-    -fx-text-fill: #009999;
+    -fx-text-fill: highlight-playing-color;
 }
 
 .titled-pane-sidebar {
@@ -198,13 +199,17 @@
 }
 
 .treecell-sidebar:playing {
-    -fx-text-fill: #009999;
+    -fx-text-fill: highlight-playing-color;
 }
 
 /* NOW PLAYING */
 .now-playing {
     -fx-background-color: background-nowplaying;
-    -fx-padding: 10 5 10 10;
+    -fx-padding: 10 10 10 10;
+}
+
+.now-playing > .image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 17.5, 0, 0, 0);
 }
 
 .title-label {
@@ -349,18 +354,30 @@
 
 .library-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected,
 .library-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:selected {
+    -fx-background: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.library-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected,
+.library-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:selected {
     -fx-background: highlight-color;
     -fx-table-cell-border-color: transparent;
 }
 
 .library-view:row-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused,
 .library-view:cell-selection > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell:focused {
+    -fx-background: transparent;
+    -fx-background-insets: 0;
+}
+
+.library-view:row-selection:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:focused,
+.library-view:cell-selection:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell:focused {
     -fx-background: highlight-color;
     -fx-background-insets: 0;
 }
 
 .library-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:selected {
-    -fx-background: highlight-color;
+    -fx-background: transparent;
     -fx-background-insets: 0;
 }
 
@@ -375,9 +392,9 @@
 .library-view:constrained-resize .filler {
     -fx-background-color: background-controlbar;
     -fx-background-insets: 0;
-    -fx-font-weight: bold;
+    -fx-font-weight: normal;
     -fx-size: 3.5em;
-    -fx-font-size: 1.25em;
+    -fx-font-size: 1.5em;
     -fx-text-fill: text1;
     -fx-padding: 0.166667em;
 }
@@ -393,4 +410,8 @@
     -fx-border-color: transparent -fx-table-cell-border-color transparent transparent;
     -fx-cell-size: 2.0em; /* 24 */
     -fx-text-fill: text2;
+}
+
+.library-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell:playing .table-cell {
+    -fx-text-fill: highlight-playing-color;
 }
