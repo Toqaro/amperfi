@@ -33,12 +33,9 @@ public class LibraryDatabase {
     private final ArrayList<LibraryFile> files = new ArrayList<>();
     private final ArrayList<String> folders = new ArrayList<>();
 
-    public LibraryDatabase() throws SQLException, UnsupportedTagException, InvalidDataException, IOException {
-        this(new File(System.getenv("APPDATA") + "\\Amperfi\\", "library.db"));
-    }
-
     public LibraryDatabase(File databaseLocation) throws SQLException, InvalidDataException, IOException, UnsupportedTagException {
         if(!databaseLocation.isAbsolute()) databaseLocation = databaseLocation.getAbsoluteFile();
+        System.out.println(databaseLocation.getAbsolutePath());
         if (!databaseLocation.exists()) {
             if (!databaseLocation.getParentFile().mkdirs() && !databaseLocation.getParentFile().exists())
                 throw new IOException("Unable to create database directory");
