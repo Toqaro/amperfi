@@ -59,7 +59,7 @@ public class ControllerBarController extends AbstractController<ControllerBar> {
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             control.currentTimeProperty.set(TimeStringUtils.millisToString(newValue.longValue()));
-            control.pbTime.setProgress(Amperfi.playbackController.getPosition() / (double) Amperfi.playbackController.getLength());
+            control.pbTime.controller.setValue(Amperfi.playbackController.getPosition() / (double) Amperfi.playbackController.getLength());
         }
 
     }
@@ -77,7 +77,11 @@ public class ControllerBarController extends AbstractController<ControllerBar> {
 
         @Override
         public void handle(MouseEvent event) {
-            Amperfi.ui.showView(Amperfi.ui.settings);
+            if (Amperfi.ui.activeView.get() == Amperfi.ui.settings) {
+                Amperfi.ui.showView(Amperfi.ui.libraryView);
+            } else {
+                Amperfi.ui.showView(Amperfi.ui.settings);
+            }
         }
 
     }

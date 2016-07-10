@@ -108,6 +108,10 @@
     -fx-background-color: background-sidebar;
 }
 
+.hybrid-pb-slider .track {
+    -fx-background-color: transparent;
+}
+
 /* SIDEBAR */
 .sidebar {
     -fx-background-color: background-sidebar;
@@ -252,19 +256,19 @@
     -fx-opacity: 0.6;
 }
 
-.time-bar {
+.time-bar > .progress-bar {
     -fx-indeterminate-bar-length: 0;
     -fx-indeterminate-bar-escape: false;
     -fx-indeterminate-bar-flip: false;
     -fx-indeterminate-bar-animation-time: 2;
 }
-.time-bar > .bar {
+.time-bar > .progress-bar > .bar {
     -fx-background-color: highlight-color;
     -fx-background-insets: 0;
     -fx-background-radius: 5;
     -fx-padding: 0.25em;
 }
-.time-bar > .track {
+.time-bar > .progress-bar > .track {
     -fx-background-color: background-sidebar;
     -fx-background-insets: 0;
     -fx-background-radius: 5;

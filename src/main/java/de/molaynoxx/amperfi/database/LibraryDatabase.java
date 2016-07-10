@@ -35,7 +35,6 @@ public class LibraryDatabase {
 
     public LibraryDatabase(File databaseLocation) throws SQLException, InvalidDataException, IOException, UnsupportedTagException {
         if(!databaseLocation.isAbsolute()) databaseLocation = databaseLocation.getAbsoluteFile();
-        System.out.println(databaseLocation.getAbsolutePath());
         if (!databaseLocation.exists()) {
             if (!databaseLocation.getParentFile().mkdirs() && !databaseLocation.getParentFile().exists())
                 throw new IOException("Unable to create database directory");

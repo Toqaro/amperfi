@@ -75,6 +75,10 @@ public class PlaybackController {
         playerAPI.next();
     }
 
+    public void jumpToPercent(double percent) {
+        playerAPI.jumpToPercent(percent);
+    }
+
     public Playlist getCurrentlyPlaying() {
         return currentlyPlaying.get();
     }

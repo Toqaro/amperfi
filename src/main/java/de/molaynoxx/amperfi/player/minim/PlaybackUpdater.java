@@ -17,7 +17,7 @@ public class PlaybackUpdater implements Runnable {
 
     @Override
     public void run() {
-        while (player.isPlaying() || (!player.isPlaying() && api.getStatus() == PlayerAPI.PlayerStatus.PAUSED)) {
+        while (player.isPlaying() || (!player.isPlaying() && (api.getStatus() == PlayerAPI.PlayerStatus.PAUSED || api.getStatus() == PlayerAPI.PlayerStatus.FORWARDING))) {
             if(Thread.currentThread().isInterrupted()) return;
             try {
                 Thread.sleep(10);

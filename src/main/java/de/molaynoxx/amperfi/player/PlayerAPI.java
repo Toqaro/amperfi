@@ -13,7 +13,7 @@ import java.util.List;
 public class PlayerAPI {
 
     public enum PlayerStatus {
-        STOPPED, PLAYING, PAUSED
+        STOPPED, PLAYING, PAUSED, FORWARDING
     }
 
     private final Minim minim = new Minim(new DefaultMinimHelper());
@@ -210,6 +210,19 @@ public class PlayerAPI {
     public LibraryFile getCurrentTitle() {
         if (currentPlaylist.size() == 0) return null;
         return currentPlaylist.get(currentIndex);
+    }
+
+    /**
+     * Jumps to the position of the song in percent (0-1)
+     *
+     * @param percent Double value from 0 to 1 expressing the position to jump to in the current song in percent
+     */
+    public void jumpToPercent(double percent) {
+        if (currentPlayer == null) return;
+        System.out.println("Jumping to: " + ((int) (currentPlayer.getMetaData().length() * percent)) + "ms");
+        setStatus(PlayerStatus.FORWARDING);
+        currentPlayer.cue((int) (currentPlayer.getMetaData().length() * percent));
+        setStatus(PlayerStatus.PLAYING);
     }
 
 }

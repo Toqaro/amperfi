@@ -7,7 +7,6 @@ import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -17,7 +16,7 @@ public class ControllerBar extends HBox {
 
     public final ControllerBarController controller = new ControllerBarController(this);
 
-    public final ProgressBar pbTime;
+    public final HybridProgressbar pbTime;
     public final StringProperty currentTimeProperty;
     public final StringProperty lengthProperty;
     public final ObjectProperty<Image> playPauseProperty;
@@ -82,7 +81,7 @@ public class ControllerBar extends HBox {
         HBox hbProgress = new HBox();
         hbProgress.setAlignment(Pos.CENTER_LEFT);
 
-        pbTime = new ProgressBar();
+        pbTime = new HybridProgressbar();
         pbTime.getStyleClass().add("time-bar");
         HBox.setMargin(pbTime, new Insets(0, 10, 0, 10));
         HBox.setHgrow(pbTime, Priority.ALWAYS);
@@ -94,8 +93,8 @@ public class ControllerBar extends HBox {
 
         ImageView btnSettings = new ImageView(new Image(Amperfi.class.getResourceAsStream("/icn/icnSettings.png")));
         btnSettings.getStyleClass().add("btn-settings");
-        btnSettings.setFitHeight(35);
-        btnSettings.setFitWidth(35);
+        btnSettings.setFitHeight(25);
+        btnSettings.setFitWidth(25);
         HBox.setMargin(btnSettings, new Insets(0, 10, 0, 10));
         btnSettings.setPickOnBounds(true);
         btnSettings.setOnMouseClicked(controller.settingsClickHandler);
