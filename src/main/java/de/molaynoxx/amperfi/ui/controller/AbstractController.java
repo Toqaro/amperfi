@@ -1,6 +1,8 @@
 package de.molaynoxx.amperfi.ui.controller;
 
-public abstract class AbstractController<T> {
+import javafx.scene.Node;
+
+public abstract class AbstractController<T extends Node> {
 
     protected final T control;
 

@@ -231,6 +231,48 @@
     -fx-text-fill: text1;
 }
 
+/* VOLUME BAR */
+.volume-pb-bar {
+    -fx-background-color: background-sidebar;
+    -fx-padding: 0.33333em;
+}
+
+.volume-pb-bar .icn-button {
+    -fx-opacity: 0.2;
+}
+
+.volume-pb-bar .icn-button:hover {
+    -fx-opacity: 0.3;
+}
+
+.volume-pb-bar . icn-button:pressed {
+    -fx-opacity: 0.5;
+}
+
+.volume-pb-nar .icn-button:activated {
+    -fx-opacity: 0.9;
+}
+
+.volume-bar > .progress-bar {
+    -fx-indeterminate-bar-length: 0;
+    -fx-indeterminate-bar-escape: false;
+    -fx-indeterminate-bar-flip: false;
+    -fx-indeterminate-bar-animation-time: 2;
+}
+
+.volume-bar > .progress-bar > .bar {
+    -fx-background-color: highlight-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-padding: 0.25em;
+}
+
+.volume-bar > .progress-bar > .track {
+    -fx-background-color: background-main;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
 /* CONTROL BAR */
 .control-bar {
     -fx-background-color: background-controlbar;
@@ -262,12 +304,14 @@
     -fx-indeterminate-bar-flip: false;
     -fx-indeterminate-bar-animation-time: 2;
 }
+
 .time-bar > .progress-bar > .bar {
     -fx-background-color: highlight-color;
     -fx-background-insets: 0;
     -fx-background-radius: 5;
     -fx-padding: 0.25em;
 }
+
 .time-bar > .progress-bar > .track {
     -fx-background-color: background-sidebar;
     -fx-background-insets: 0;

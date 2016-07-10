@@ -2,6 +2,7 @@ package de.molaynoxx.amperfi.ui.controls;
 
 import de.molaynoxx.amperfi.Amperfi;
 import de.molaynoxx.amperfi.ui.controller.ControllerBarController;
+import de.molaynoxx.amperfi.ui.controller.helper.TimeBarExecutor;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -82,6 +83,7 @@ public class ControllerBar extends HBox {
         hbProgress.setAlignment(Pos.CENTER_LEFT);
 
         pbTime = new HybridProgressbar();
+        pbTime.controller.setExecutor(new TimeBarExecutor());
         pbTime.getStyleClass().add("time-bar");
         HBox.setMargin(pbTime, new Insets(0, 10, 0, 10));
         HBox.setHgrow(pbTime, Priority.ALWAYS);
@@ -95,7 +97,7 @@ public class ControllerBar extends HBox {
         btnSettings.getStyleClass().add("btn-settings");
         btnSettings.setFitHeight(25);
         btnSettings.setFitWidth(25);
-        HBox.setMargin(btnSettings, new Insets(0, 10, 0, 10));
+        HBox.setMargin(btnSettings, new Insets(0, 10, 0, 20));
         btnSettings.setPickOnBounds(true);
         btnSettings.setOnMouseClicked(controller.settingsClickHandler);
         this.getChildren().add(btnSettings);

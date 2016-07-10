@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 public class Sidebar extends VBox {
 
     public final NowPlaying nowPlaying;
+    public final VolumePlaybackBar volumeBar;
     public final SidebarTreeView<Playlist> treeViewGenres;
     public final SidebarTreeView<Playlist> treeViewAlbums;
     public final SidebarTreeView<Playlist> treeViewArtists;
@@ -87,6 +88,10 @@ public class Sidebar extends VBox {
         this.nowPlaying = new NowPlaying();
         getChildren().add(nowPlaying);
         VBox.setVgrow(nowPlaying, Priority.NEVER);
+
+        this.volumeBar = new VolumePlaybackBar();
+        getChildren().add(volumeBar);
+        VBox.setVgrow(volumeBar, Priority.NEVER);
 
         // Make sure the upper half of the sidebar is always big enough so the NowPlaying Control is touching the ControlBar
         sidebarContainer.minHeightProperty().bind(this.heightProperty().subtract(nowPlaying.heightProperty()));

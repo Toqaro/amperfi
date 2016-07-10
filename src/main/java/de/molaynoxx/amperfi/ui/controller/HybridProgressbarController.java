@@ -1,6 +1,6 @@
 package de.molaynoxx.amperfi.ui.controller;
 
-import de.molaynoxx.amperfi.Amperfi;
+import de.molaynoxx.amperfi.ui.controller.skeleton.HybridProgressbarRunnable;
 import de.molaynoxx.amperfi.ui.controls.HybridProgressbar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +12,8 @@ public class HybridProgressbarController extends AbstractController<HybridProgre
     public final ChangeListener<Number> sliderValueChanged = new SliderValueChangedListener();
     public final EventHandler<MouseEvent> onMouseReleased = new MouseReleasedHandler();
     public final EventHandler<MouseEvent> onMouseClicked = new MouseClickedHandler();
+
+    private HybridProgressbarRunnable executor;
 
     private double lastValue = 0;
 
@@ -33,9 +35,8 @@ public class HybridProgressbarController extends AbstractController<HybridProgre
 
         @Override
         public void handle(MouseEvent event) {
-            if (event.isStillSincePress()) {
-                double pos = event.getX() / control.slider.getWidth();
-                Amperfi.playbackController.jumpToPercent(pos);
+            if (event.isStillSincePress() && executor != null) {
+                executor.valueManuallyChanged(control.controller, event.getX() / control.slider.getWidth());
             }
         }
 
@@ -45,9 +46,8 @@ public class HybridProgressbarController extends AbstractController<HybridProgre
 
         @Override
         public void handle(MouseEvent event) {
-            if (!event.isStillSincePress()) {
-                setValue(lastValue);
-                Amperfi.playbackController.jumpToPercent(lastValue);
+            if (!event.isStillSincePress() && executor != null) {
+                executor.valueManuallyChanged(control.controller, lastValue);
             }
         }
 
@@ -63,6 +63,10 @@ public class HybridProgressbarController extends AbstractController<HybridProgre
             control.slider.setValue(v);
             control.progressBar.setProgress(v);
         }
+    }
+
+    public void setExecutor(HybridProgressbarRunnable executor) {
+        this.executor = executor;
     }
 
 }

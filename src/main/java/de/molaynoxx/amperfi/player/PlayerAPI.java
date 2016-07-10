@@ -97,9 +97,10 @@ public class PlayerAPI {
         return volume;
     }
 
+    // TODO Better Volume Ranges
     public void setVolume(float volume) {
         this.volume = volume;
-        if(currentPlayer != null) currentPlayer.setGain(-80 * (1 - volume));
+        if (currentPlayer != null) currentPlayer.setGain(-80 * (1.0f - volume));
     }
 
     public int getCurrentIndex() {

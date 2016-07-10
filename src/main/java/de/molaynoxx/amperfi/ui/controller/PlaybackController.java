@@ -5,10 +5,7 @@ import de.molaynoxx.amperfi.database.projection.LibraryFile;
 import de.molaynoxx.amperfi.player.PlayerAPI;
 import de.molaynoxx.amperfi.player.playlist.Playlist;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 
 public class PlaybackController {
 
@@ -20,12 +17,17 @@ public class PlaybackController {
     private final IntegerProperty currentIndex = new SimpleIntegerProperty(-1);
     private final IntegerProperty position = new SimpleIntegerProperty(0);
     private final IntegerProperty length = new SimpleIntegerProperty(0);
+    private final DoubleProperty volume = new SimpleDoubleProperty(playerAPI.getVolume());
 
     public PlaybackController() {
         Thread thStatusUpdater = new Thread(new StatusPropertyUpdater());
         thStatusUpdater.setName("PlayerAPI UI Property Updater Thread");
         thStatusUpdater.setDaemon(true);
         thStatusUpdater.start();
+
+        volume.addListener((obv, oldVal, newVal) -> {
+            playerAPI.setVolume(newVal.floatValue());
+        });
     }
 
     public void playPlaylist(Playlist pls) {
@@ -77,6 +79,18 @@ public class PlaybackController {
 
     public void jumpToPercent(double percent) {
         playerAPI.jumpToPercent(percent);
+    }
+
+    public double getVolume() {
+        return volume.get();
+    }
+
+    public DoubleProperty volumeProperty() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume.set(volume);
     }
 
     public Playlist getCurrentlyPlaying() {
