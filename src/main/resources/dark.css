@@ -346,6 +346,10 @@
     -fx-background-color: background-main;
 }
 
+.visualizer-view {
+    -fx-background-color: background-controlbar;
+}
+
 /* GENERAL SETTINGS */
 .settings-page-title {
     -fx-text-fill: text3;

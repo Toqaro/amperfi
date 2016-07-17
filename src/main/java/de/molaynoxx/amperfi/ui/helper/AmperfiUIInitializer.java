@@ -31,7 +31,10 @@ public class AmperfiUIInitializer {
         si_mp3Import.setOnMouseClicked(action -> Amperfi.ui.showView(Amperfi.ui.mp3Import));
         Amperfi.ui.settings.addSettingsItem(si_mp3Import);
 
-        Amperfi.ui.settings.addSettingsItem(new SettingsItem(new Image(Amperfi.class.getResourceAsStream("/icn/icnVisualizer.png")), "Visualizer"));
+        SettingsItem si_visualizer = new SettingsItem(new Image(Amperfi.class.getResourceAsStream("/icn/icnVisualizer.png")), "Visualizer");
+        si_visualizer.setOnMouseClicked(action -> Amperfi.ui.showView(Amperfi.ui.visualizerView));
+        Amperfi.ui.settings.addSettingsItem(si_visualizer);
+
         Amperfi.ui.settings.addSettingsItem(new SettingsItem(new Image(Amperfi.class.getResourceAsStream("/icn/icnWebInterface.png")), "Web Interface"));
 
         Amperfi.ui.showView(Amperfi.ui.libraryView);

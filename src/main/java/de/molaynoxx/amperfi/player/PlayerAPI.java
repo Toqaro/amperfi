@@ -2,6 +2,7 @@ package de.molaynoxx.amperfi.player;
 
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
+import ddf.minim.analysis.FFT;
 import de.molaynoxx.amperfi.database.projection.LibraryFile;
 import de.molaynoxx.amperfi.player.minim.DefaultMinimHelper;
 import de.molaynoxx.amperfi.player.minim.PlaybackUpdater;
@@ -24,6 +25,8 @@ public class PlayerAPI {
     private final ArrayList<LibraryFile> originalPlaylist = new ArrayList<>();
     private final ArrayList<LibraryFile> currentPlaylist = new ArrayList<>();
     private int currentIndex = 0;
+
+    private FFT fft;
 
     /**
      * Repeat a playlist after playing the last song of it
@@ -133,6 +136,9 @@ public class PlayerAPI {
         currentPlayer = minim.loadFile(currentPlaylist.get(currentIndex).getPath());
         currentPlayer.play();
         currentPlayer.setGain(-80 * (1 - volume));
+
+        fft = new FFT(currentPlayer.bufferSize(), currentPlayer.sampleRate());
+
         playbackUpdater = new Thread(new PlaybackUpdater(currentPlayer, this::afterPlayback, this));
         playbackUpdater.setDaemon(true);
         playbackUpdater.start();
@@ -143,6 +149,7 @@ public class PlayerAPI {
     }
 
     private void afterPlayback() {
+        fft = null;
         currentPlayer.close();
         if(loop) {
             startPlayback();
@@ -211,6 +218,14 @@ public class PlayerAPI {
     public LibraryFile getCurrentTitle() {
         if (currentPlaylist.size() == 0) return null;
         return currentPlaylist.get(currentIndex);
+    }
+
+    public FFT getFFT() {
+        return fft;
+    }
+
+    public AudioPlayer getCurrentPlayer() {
+        return currentPlayer;
     }
 
     /**

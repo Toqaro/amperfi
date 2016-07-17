@@ -24,6 +24,7 @@ public class AmperfiScene extends Scene {
     public final Mp3Import mp3Import;
     public final Mp3ImportProgress mp3ImportProgress;
     public final LibraryView libraryView;
+    public final VisualizerView visualizerView;
 
     public final ObjectProperty<Viewable> activeView = new SimpleObjectProperty<>();
 
@@ -69,6 +70,10 @@ public class AmperfiScene extends Scene {
         libraryView = new LibraryView(ID3Helper.ID3Tag.TITLE, ID3Helper.ID3Tag.ARTIST, ID3Helper.ID3Tag.ALBUM, ID3Helper.ID3Tag.RATING);
         libraryView.setVisible(false);
         centerPane.getChildren().add(libraryView);
+
+        visualizerView = new VisualizerView(centerPane);
+        visualizerView.setVisible(false);
+        centerPane.getChildren().add(visualizerView);
     }
 
     public void showView(Viewable control) {

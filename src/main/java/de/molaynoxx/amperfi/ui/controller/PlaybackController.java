@@ -45,7 +45,7 @@ public class PlaybackController {
             currentlyPlaying.set(pls);
         }
 
-        int index = 0;
+        int index;
         for (index = 0; index < playerAPI.getCurrentPlaylist().size(); index++) {
             if (playerAPI.getCurrentPlaylist().get(index).getFileId() == lf.getFileId()) break;
         }
@@ -139,6 +139,10 @@ public class PlaybackController {
 
     public ObjectProperty<LibraryFile> currentTitleProperty() {
         return currentTitle;
+    }
+
+    public PlayerAPI getPlayerAPI() {
+        return playerAPI;
     }
 
     private final class StatusPropertyUpdater implements Runnable {
