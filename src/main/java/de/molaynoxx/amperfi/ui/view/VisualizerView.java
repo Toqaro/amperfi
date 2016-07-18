@@ -6,7 +6,7 @@ import ddf.minim.analysis.FFT;
 import de.molaynoxx.amperfi.Amperfi;
 import de.molaynoxx.amperfi.player.PlayerAPI;
 import de.molaynoxx.amperfi.ui.controls.AbstractVisualizer;
-import de.molaynoxx.amperfi.ui.controls.visualizer.SphereVisualizer;
+import de.molaynoxx.amperfi.ui.controls.visualizer.TextVisualizer;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -20,7 +20,7 @@ public class VisualizerView extends StackPane implements Viewable {
         this.prefWidthProperty().bind(parent.widthProperty());
         this.prefHeightProperty().bind(parent.heightProperty());
 
-        activeVisualizer = new SphereVisualizer();
+        activeVisualizer = new TextVisualizer();
 
         activeVisualizer.widthProperty().bind(widthProperty());
         activeVisualizer.heightProperty().bind(heightProperty());
@@ -45,7 +45,7 @@ public class VisualizerView extends StackPane implements Viewable {
                     Platform.runLater(() -> activeVisualizer.drawVisualizerFFT(fft));
                 }
                 try {
-                    Thread.sleep(18);
+                    Thread.sleep(17);
                 } catch (InterruptedException e) {
                     return;
                 }

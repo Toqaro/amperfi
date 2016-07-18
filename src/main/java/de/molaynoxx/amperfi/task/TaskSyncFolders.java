@@ -46,6 +46,7 @@ public class TaskSyncFolders extends Task<Void> {
             }
             return null;
         } finally {
+            Amperfi.db.reloadFiles();
             Amperfi.ui.unlockView();
             Amperfi.ui.showView(Amperfi.ui.mp3Import);
         }

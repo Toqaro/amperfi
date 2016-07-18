@@ -200,7 +200,11 @@ public class PlayerAPI {
 
     public void previous() {
         playbackUpdater.interrupt();
-        currentIndex -= loop ? 1 : 2;
+        if (currentIndex == 0) {
+            currentIndex = currentPlaylist.size() - (loop ? 1 : 2);
+        } else {
+            currentIndex -= loop ? 1 : 2;
+        }
         currentIndex %= currentPlaylist.size();
         afterPlayback();
     }

@@ -14,9 +14,11 @@ public class Amperfi extends Application {
     public static LibraryDatabase db;
     public static PlaybackController playbackController;
     public static AmperfiScene ui;
+    public static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Amperfi.primaryStage = primaryStage;
         TaskInitialize initializer = new TaskInitialize();
         initializer.setOnSucceeded((workerEvent) -> initializeUI(primaryStage));
         playbackController = new PlaybackController();
