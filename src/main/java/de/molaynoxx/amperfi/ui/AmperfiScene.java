@@ -48,12 +48,14 @@ public class AmperfiScene extends Scene {
         verticalWrapper.getChildren().add(controllerBar);
 
         // Make sure horizontalWrapper covers all the space above the ControllerBar
-        horizontalWrapper.prefHeightProperty().bind(root.heightProperty().subtract(controllerBar.heightProperty()));
+        horizontalWrapper.prefHeightProperty().bind(this.heightProperty().subtract(controllerBar.heightProperty()));
+        horizontalWrapper.minHeightProperty().bind(this.heightProperty().subtract(controllerBar.heightProperty()));
+        horizontalWrapper.maxHeightProperty().bind(this.heightProperty().subtract(controllerBar.heightProperty()));
 
         centerPane = new StackPane();
         horizontalWrapper.getChildren().add(centerPane);
-        centerPane.prefWidthProperty().bind(horizontalWrapper.widthProperty().subtract(sidebar.widthProperty()));
-        centerPane.prefHeightProperty().bind(horizontalWrapper.heightProperty());
+        centerPane.prefWidthProperty().bind(this.widthProperty().subtract(sidebar.widthProperty()));
+        centerPane.prefHeightProperty().bind(horizontalWrapper.prefHeightProperty());
 
         settings = new SettingsOverview();
         settings.setVisible(false);
@@ -73,6 +75,10 @@ public class AmperfiScene extends Scene {
 
         visualizerView = new VisualizerView(centerPane);
         visualizerView.setVisible(false);
+        visualizerView.prefHeightProperty().bind(centerPane.prefHeightProperty());
+        visualizerView.maxHeightProperty().bind(centerPane.prefHeightProperty());
+        visualizerView.prefWidthProperty().bind(centerPane.prefWidthProperty());
+        visualizerView.maxWidthProperty().bind(centerPane.prefWidthProperty());
         centerPane.getChildren().add(visualizerView);
     }
 

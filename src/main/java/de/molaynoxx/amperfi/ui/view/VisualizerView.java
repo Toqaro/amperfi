@@ -17,13 +17,13 @@ public class VisualizerView extends StackPane implements Viewable {
 
     public VisualizerView(Pane parent) {
         this.getStyleClass().add("visualizer-view");
-        this.prefWidthProperty().bind(parent.widthProperty());
-        this.prefHeightProperty().bind(parent.heightProperty());
+        this.prefWidthProperty().bind(parent.prefWidthProperty());
+        this.prefHeightProperty().bind(parent.prefHeightProperty());
 
         activeVisualizer = new TextVisualizer();
 
-        activeVisualizer.widthProperty().bind(widthProperty());
-        activeVisualizer.heightProperty().bind(heightProperty());
+        activeVisualizer.widthProperty().bind(prefWidthProperty());
+        activeVisualizer.heightProperty().bind(prefHeightProperty());
 
         getChildren().add(activeVisualizer);
 
