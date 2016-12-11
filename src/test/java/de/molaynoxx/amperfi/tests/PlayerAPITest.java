@@ -15,8 +15,7 @@ public class PlayerAPITest {
 
     @Test
     public void playbackTest() throws InterruptedException {
-        //if(new Minim(new DefaultMinimHelper()).getLineOut() == null) return;
-        System.out.println(new Minim(new DefaultMinimHelper()).getLineOut() == null);
+        if (new Minim(new DefaultMinimHelper()).getLineOut() == null) return;
 
         LibraryFile lf = new LibraryFile();
         lf.setPath(new File("testResources/noise.mp3").getAbsolutePath());
