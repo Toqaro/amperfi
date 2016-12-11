@@ -20,6 +20,10 @@ before_install:
   - sudo modprobe snd-dummy
   - pip install --user codecov
 
+script:
+  - gradle assemble
+  - sudo gradle check --stacktrace
+
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 

@@ -1,7 +1,9 @@
 package de.molaynoxx.amperfi.tests;
 
+import ddf.minim.Minim;
 import de.molaynoxx.amperfi.database.projection.LibraryFile;
 import de.molaynoxx.amperfi.player.PlayerAPI;
+import de.molaynoxx.amperfi.player.minim.DefaultMinimHelper;
 import org.junit.Test;
 
 import java.io.File;
@@ -14,6 +16,7 @@ public class PlayerAPITest {
     @Test
     public void playbackTest() throws InterruptedException {
         //if(new Minim(new DefaultMinimHelper()).getLineOut() == null) return;
+        System.out.println(new Minim(new DefaultMinimHelper()).getLineOut() == null);
 
         LibraryFile lf = new LibraryFile();
         lf.setPath(new File("testResources/noise.mp3").getAbsolutePath());
