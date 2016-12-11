@@ -32,9 +32,9 @@ public class SidebarController extends AbstractController<Sidebar> {
     public final ListChangeListener<? super TreeItem<Playlist>> displayAlbumHandler = new DisplayTagHandler(ID3Helper.ID3Tag.ALBUM);
     public final ListChangeListener<? super TreeItem<Playlist>> displayGenreHandler = new DisplayTagHandler(ID3Helper.ID3Tag.GENRE);
     public final EventHandler<? super MouseEvent> playLibraryHandler = new PlayLibraryHandler();
-    public final EventHandler<? super MouseEvent> playArtistHandler = new PlayTagHandler(ID3Helper.ID3Tag.ARTIST);
-    public final EventHandler<? super MouseEvent> playAlbumHandler = new PlayTagHandler(ID3Helper.ID3Tag.ALBUM);
-    public final EventHandler<? super MouseEvent> playGenreHandler = new PlayTagHandler(ID3Helper.ID3Tag.GENRE);
+    public final EventHandler<? super MouseEvent> clickArtistHandler = new ClickTagHandler(ID3Helper.ID3Tag.ARTIST);
+    public final EventHandler<? super MouseEvent> clickAlbumHandler = new ClickTagHandler(ID3Helper.ID3Tag.ALBUM);
+    public final EventHandler<? super MouseEvent> clickGenreHandler = new ClickTagHandler(ID3Helper.ID3Tag.GENRE);
 
     public SidebarController(Sidebar control) {
         super(control);
@@ -62,7 +62,12 @@ public class SidebarController extends AbstractController<Sidebar> {
         }
     }
 
-
+    /**
+     * Shows the library screen in the main area with the desired state (entire library/playlist/artist/genre/etc.)
+     * Clears selection in other TreeViews so only one element is shown as active at a time
+     *
+     * @param state desired state
+     */
     public void showMode(SidebarState state) {
         Amperfi.ui.showView(Amperfi.ui.libraryView);
         if (state.getLibraryViewMode() == LibraryViewMode.LIBRARY)
@@ -80,6 +85,10 @@ public class SidebarController extends AbstractController<Sidebar> {
         Amperfi.ui.libraryView.controller.showPlaylist(state.getPlaylist());
     }
 
+    /**
+     * Gets called upon clicking the "Library" label
+     * Brings the entire library up on the main section
+     */
     private final class DisplayLibraryHandler implements EventHandler<MouseEvent> {
 
         @Override
@@ -89,6 +98,9 @@ public class SidebarController extends AbstractController<Sidebar> {
 
     }
 
+    /**
+     * Gets called upon changing the selected item inside one of the TreeViews in the sidebar (i.e. a band/album/genre)
+     */
     private final class DisplayTagHandler implements ListChangeListener<TreeItem<Playlist>> {
 
         private final ID3Helper.ID3Tag tag;
@@ -105,6 +117,9 @@ public class SidebarController extends AbstractController<Sidebar> {
 
     }
 
+    /**
+     * Gets called upon double clicking the "Library" element in the sidebar and starts playback of the entire library
+     */
     private final class PlayLibraryHandler implements EventHandler<MouseEvent> {
 
         @Override
@@ -116,16 +131,24 @@ public class SidebarController extends AbstractController<Sidebar> {
 
     }
 
-    private class PlayTagHandler implements EventHandler<MouseEvent> {
+    /**
+     * Gets called upon clicking an item inside one of the TreeViews in the sidebar (i.e. a band/album/genre)
+     * Starts playback of the currently selected item in the sidebar if double clicked
+     * Brings back correct screen for main area
+     */
+    private class ClickTagHandler implements EventHandler<MouseEvent> {
 
         private final ID3Helper.ID3Tag tag;
 
-        public PlayTagHandler(ID3Helper.ID3Tag tag) {
+        public ClickTagHandler(ID3Helper.ID3Tag tag) {
             this.tag = tag;
         }
 
         @Override
         public void handle(MouseEvent event) {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                Amperfi.ui.showView(Amperfi.ui.libraryView);
+            }
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 switch (tag) {
                     case ARTIST:

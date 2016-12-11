@@ -59,7 +59,7 @@ public class Sidebar extends VBox {
 
         treeViewArtists = new SidebarTreeView<>();
         treeViewArtists.getSelectionModel().getSelectedItems().addListener(controller.displayArtistHandler);
-        treeViewArtists.setOnMouseClicked(controller.playArtistHandler);
+        treeViewArtists.setOnMouseClicked(controller.clickArtistHandler);
         tpArtists.setContent(treeViewArtists);
 
         TitledPane tpAlbums = new TitledPane();
@@ -68,7 +68,7 @@ public class Sidebar extends VBox {
 
         treeViewAlbums = new SidebarTreeView<>();
         treeViewAlbums.getSelectionModel().getSelectedItems().addListener(controller.displayAlbumHandler);
-        treeViewAlbums.setOnMouseClicked(controller.playAlbumHandler);
+        treeViewAlbums.setOnMouseClicked(controller.clickAlbumHandler);
         tpAlbums.setContent(treeViewAlbums);
 
         TitledPane tpGenres = new TitledPane();
@@ -77,7 +77,7 @@ public class Sidebar extends VBox {
 
         treeViewGenres = new SidebarTreeView<>();
         treeViewGenres.getSelectionModel().getSelectedItems().addListener(controller.displayGenreHandler);
-        treeViewGenres.setOnMouseClicked(controller.playGenreHandler);
+        treeViewGenres.setOnMouseClicked(controller.clickGenreHandler);
         tpGenres.setContent(treeViewGenres);
 
         acc.getPanes().addAll(tpArtists, tpAlbums, tpGenres);
