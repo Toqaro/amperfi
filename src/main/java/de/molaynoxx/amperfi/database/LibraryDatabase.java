@@ -2,12 +2,14 @@ package de.molaynoxx.amperfi.database;
 
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import com.querydsl.codegen.BeanSerializer;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.SQLQueryFactory;
 import com.querydsl.sql.SQLiteTemplates;
+import com.querydsl.sql.codegen.MetaDataExporter;
 import com.querydsl.sql.dml.SQLUpdateClause;
 import de.molaynoxx.amperfi.database.model.QLibraryFile;
 import de.molaynoxx.amperfi.database.model.QLibraryFolder;
@@ -33,7 +35,15 @@ public class LibraryDatabase {
     private final ArrayList<LibraryFile> files = new ArrayList<>();
     private final ArrayList<String> folders = new ArrayList<>();
 
-    public LibraryDatabase(File databaseLocation) throws SQLException, InvalidDataException, IOException, UnsupportedTagException {
+    /**
+     * Loads the database used for storing locations of mp3 files contained in the library for later playback
+     * If needed creates a new database based on the available tags of the mp3agic library
+     *
+     * @param databaseLocation Location of the sqlite database
+     * @throws SQLException should theoretically not get thrown, if thrown something in generating the tables through SQL went wrong
+     * @throws IOException  gets thrown in case the needed folder structure for the database can't be created
+     */
+    public LibraryDatabase(File databaseLocation) throws SQLException, IOException {
         if(!databaseLocation.isAbsolute()) databaseLocation = databaseLocation.getAbsoluteFile();
         if (!databaseLocation.exists()) {
             if (!databaseLocation.getParentFile().mkdirs() && !databaseLocation.getParentFile().exists())
@@ -57,16 +67,7 @@ public class LibraryDatabase {
             conn.close();
         }
 
-        /*Connection conn = DriverManager.getConnection("jdbc:sqlite:" + databaseLocation.getAbsolutePath());
-
-        MetaDataExporter exporter = new MetaDataExporter();
-        exporter.setPackageName("de.molaynoxx.ammp.database.model");
-        exporter.setTargetFolder(new File("src/main/java/"));
-        exporter.setBeanPackageName("de.molaynoxx.ammp.database.projection");
-        exporter.setBeansTargetFolder(new File("src/main/java/"));
-        exporter.setBeanSerializer(new BeanSerializer());
-        exporter.setExportAll(true);
-        exporter.export(conn.getMetaData());*/
+        /**/
 
         SQLiteTemplates sqLiteTemplate = new SQLiteTemplates();
         Configuration config = new Configuration(sqLiteTemplate);
@@ -78,6 +79,25 @@ public class LibraryDatabase {
 
         reloadFiles();
         reloadFolders();
+    }
+
+    /**
+     * Generates needed model classes for QueryDSL library (only needed for internal development use)
+     *
+     * @param databaseLocation Location of the sqlite database to generate the classes from
+     * @throws SQLException
+     */
+    private void generateCodeModels(File databaseLocation) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + databaseLocation.getAbsolutePath());
+
+        MetaDataExporter exporter = new MetaDataExporter();
+        exporter.setPackageName("de.molaynoxx.ammp.database.model");
+        exporter.setTargetFolder(new File("src/main/java/"));
+        exporter.setBeanPackageName("de.molaynoxx.ammp.database.projection");
+        exporter.setBeansTargetFolder(new File("src/main/java/"));
+        exporter.setBeanSerializer(new BeanSerializer());
+        exporter.setExportAll(true);
+        exporter.export(conn.getMetaData());
     }
 
     /**
@@ -199,9 +219,14 @@ public class LibraryDatabase {
         return queryFactory.select(Projections.bean(LibraryFile.class, libFile.all())).from(libFile).where(predicate).fetch();
     }
 
+    /**
+     * Returns all distinct elements of a different tag (case-insensitive)
+     * @param tag ID3Tag of which the distinct occurrences shall be returned (i.e. artist/album/genre)
+     * @return
+     */
     public List<String> getTags(ID3Helper.ID3Tag tag) {
         QLibraryFile libFile = QLibraryFile.LibraryFile;
-        return queryFactory.select(libFile.getFieldByTag(tag)).distinct().from(libFile).orderBy(libFile.getFieldByTag(tag).asc()).fetch();
+        return queryFactory.select(libFile.getFieldByTag(tag)).distinct().from(libFile).orderBy(libFile.getFieldByTag(tag).asc()).groupBy(libFile.getFieldByTag(tag).lower()).fetch();
     }
 
 }
