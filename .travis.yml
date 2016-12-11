@@ -20,6 +20,10 @@ before_install:
   - sudo modprobe snd-dummy
   - pip install --user codecov
 
+env:
+  global:
+    AUDIODEV=null
+
 script:
   - gradle assemble
   - gradle check --stacktrace
