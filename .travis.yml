@@ -2,7 +2,7 @@ language: java
 sudo: required
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 addons:
   ssh_known_hosts:
@@ -23,10 +23,6 @@ before_install:
 env:
   global:
     AUDIODEV=null
-
-script:
-  - gradle assemble
-  - gradle check --stacktrace
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
