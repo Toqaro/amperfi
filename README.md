@@ -7,5 +7,6 @@
 # Amperfi Music Manager
 Remake of my previous try at a media player. (https://github.com/MolaynoxX/MolaynoxX-Media-Manager)
 
+![Screenshot](https://raw.githubusercontent.com/Toqaro/amperfi/master/screenshot.png)
 
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
